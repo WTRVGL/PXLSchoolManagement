@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+  pxlschoolmanagement:
+    image: ${DOCKER_REGISTRY-}pxlschoolmanagement
+    ports:
+       - "5000:5000"
+    build:
+      context: .
+      dockerfile: PXLSchoolManagement/Dockerfile
+    
