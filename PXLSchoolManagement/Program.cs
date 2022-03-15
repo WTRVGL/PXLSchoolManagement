@@ -1,9 +1,24 @@
+using Microsoft.EntityFrameworkCore;
+using PXLSchoolManagement.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<DataContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DockerSqlServer"));
+});
 
 var app = builder.Build();
+
+using (var serviceScope = app.Services
+    .GetRequiredService<IServiceScopeFactory>()
+    .CreateScope())
+        {
+    using var context = serviceScope.ServiceProvider.GetService<DataContext>();
+    context.Database.Migrate();
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
