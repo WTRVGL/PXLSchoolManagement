@@ -6,6 +6,7 @@ namespace PXLSchoolManagement.Models
     {   
         [Key]
         public int LectorId { get; set; }
+        public int GebruikerId { get; set; }
         public Gebruiker Gebruiker { get; set; }
     }
 }

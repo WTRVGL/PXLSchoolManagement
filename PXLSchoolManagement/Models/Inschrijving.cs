@@ -8,6 +8,9 @@ namespace PXLSchoolManagement.Models
         public int Id { get; set; }
         public List<Student> Studenten { get; set; }
         public List<Vaklector> Vaklectors{ get; set; }
+        public int VakId { get; set; }
+        public Vak Vak { get; set; }
+        public int AcademiejaarId { get; set; }
         public Academiejaar Academiejaar { get; set; }
     }
 }
