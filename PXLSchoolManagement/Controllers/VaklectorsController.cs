@@ -23,7 +23,9 @@ namespace PXLSchoolManagement.Controllers
         // GET: Vaklectors
         public async Task<IActionResult> Index()
         {
-            var dataContext = _context.Vaklectoren.Include(v => v.Lector);
+            var dataContext = _context.Vaklectoren
+                .Include(v => v.Lector)
+                    .ThenInclude(l => l.Gebruiker);
             return View(await dataContext.ToListAsync());
         }
 
