@@ -18,6 +18,8 @@ using (var serviceScope = app.Services
         {
     using var context = serviceScope.ServiceProvider.GetService<DataContext>();
     context.Database.Migrate();
+    DatabaseInitializer.InitializeDb(context);
+    
 }
 
 // Configure the HTTP request pipeline.
