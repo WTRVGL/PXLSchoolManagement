@@ -25,8 +25,10 @@ namespace PXLSchoolManagement.Controllers
         {
             var dataContext = _context.Vaklectoren
                 .Include(v => v.Lector)
-                    .ThenInclude(l => l.Gebruiker);
-            return View(await dataContext.ToListAsync());
+                    .ThenInclude(l => l.Gebruiker)
+                .Include(v => v.Inschrijvingen);
+            var vaklectoren = await dataContext.ToListAsync();
+            return View(vaklectoren);
         }
 
         // GET: Vaklectors/Details/5
@@ -39,7 +41,10 @@ namespace PXLSchoolManagement.Controllers
 
             var vaklector = await _context.Vaklectoren
                 .Include(v => v.Lector)
+                    .ThenInclude(l => l.Gebruiker)
+                .Include(v => v.Inschrijvingen)
                 .FirstOrDefaultAsync(m => m.VakLectorId == id);
+
             if (vaklector == null)
             {
                 return NotFound();
