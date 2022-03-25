@@ -5,9 +5,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+var debugMode = Environment.GetEnvironmentVariable("DEBUG_MODE");
 builder.Services.AddDbContext<DataContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DockerSqlServer"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString($"{debugMode}SqlServer"));
 });
 
 var app = builder.Build();

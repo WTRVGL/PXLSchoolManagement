@@ -5,6 +5,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:5000
+      - DEBUG_MODE=Docker
     ports:
       - "5000"
     volumes:
