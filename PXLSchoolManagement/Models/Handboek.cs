@@ -12,8 +12,7 @@ namespace PXLSchoolManagement.Models
         public string Afbeelding { get; set; }
         public int VakId { get; set; }
         public Vak Vak { get; set; }
-        public int StudentId { get; set; }
-        public Student Student { get; set; }
+        public List<Student> Studenten { get; set; }
 
 
 
