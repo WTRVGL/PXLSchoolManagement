@@ -8,6 +8,7 @@ namespace PXLSchoolManagement.Models
         public int Id { get; set; }
         public string VakNaam { get; set; }
         public int Studiepunten { get; set; }
+
         public List<Inschrijving> Inschrijvingen { get; set; }
     }
 }

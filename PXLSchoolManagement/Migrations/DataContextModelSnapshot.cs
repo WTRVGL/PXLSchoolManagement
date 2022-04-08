@@ -22,6 +22,21 @@ namespace PXLSchoolManagement.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("HandboekStudent", b =>
+                {
+                    b.Property<int>("HandboekenHandboekId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentenStudentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("HandboekenHandboekId", "StudentenStudentId");
+
+                    b.HasIndex("StudentenStudentId");
+
+                    b.ToTable("HandboekStudent");
+                });
+
             modelBuilder.Entity("InschrijvingStudent", b =>
                 {
                     b.Property<int>("InschrijvingenId")
@@ -108,9 +123,6 @@ namespace PXLSchoolManagement.Migrations
                     b.Property<decimal>("Kostprijs")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Titel")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -122,8 +134,6 @@ namespace PXLSchoolManagement.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("HandboekId");
-
-                    b.HasIndex("StudentId");
 
                     b.HasIndex("VakId");
 
@@ -222,9 +232,25 @@ namespace PXLSchoolManagement.Migrations
 
                     b.HasKey("VakLectorId");
 
-                    b.HasIndex("LectorId");
+                    b.HasIndex("LectorId")
+                        .IsUnique();
 
                     b.ToTable("Vaklectoren");
+                });
+
+            modelBuilder.Entity("HandboekStudent", b =>
+                {
+                    b.HasOne("PXLSchoolManagement.Models.Handboek", null)
+                        .WithMany()
+                        .HasForeignKey("HandboekenHandboekId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PXLSchoolManagement.Models.Student", null)
+                        .WithMany()
+                        .HasForeignKey("StudentenStudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("InschrijvingStudent", b =>
@@ -259,19 +285,11 @@ namespace PXLSchoolManagement.Migrations
 
             modelBuilder.Entity("PXLSchoolManagement.Models.Handboek", b =>
                 {
-                    b.HasOne("PXLSchoolManagement.Models.Student", "Student")
-                        .WithMany("Handboeken")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("PXLSchoolManagement.Models.Vak", "Vak")
                         .WithMany()
                         .HasForeignKey("VakId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Student");
 
                     b.Navigation("Vak");
                 });
@@ -320,8 +338,8 @@ namespace PXLSchoolManagement.Migrations
             modelBuilder.Entity("PXLSchoolManagement.Models.Vaklector", b =>
                 {
                     b.HasOne("PXLSchoolManagement.Models.Lector", "Lector")
-                        .WithMany()
-                        .HasForeignKey("LectorId")
+                        .WithOne("Vaklector")
+                        .HasForeignKey("PXLSchoolManagement.Models.Vaklector", "LectorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -333,9 +351,10 @@ namespace PXLSchoolManagement.Migrations
                     b.Navigation("Inschrijvingen");
                 });
 
-            modelBuilder.Entity("PXLSchoolManagement.Models.Student", b =>
+            modelBuilder.Entity("PXLSchoolManagement.Models.Lector", b =>
                 {
-                    b.Navigation("Handboeken");
+                    b.Navigation("Vaklector")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("PXLSchoolManagement.Models.Vak", b =>

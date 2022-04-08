@@ -5,9 +5,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+var debugMode = Environment.GetEnvironmentVariable("DEBUG_MODE");
+if(debugMode == null)
+{
+    debugMode = "default";
+}
+
 builder.Services.AddDbContext<DataContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DockerSqlServer"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString($"{debugMode}SqlServer"));
 });
 
 var app = builder.Build();
@@ -18,6 +25,8 @@ using (var serviceScope = app.Services
         {
     using var context = serviceScope.ServiceProvider.GetService<DataContext>();
     context.Database.Migrate();
+    DatabaseInitializer.InitializeDb(context);
+    
 }
 
 // Configure the HTTP request pipeline.
