@@ -60,7 +60,7 @@ namespace PXLSchoolManagement.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,VakId,AcademiejaarId")] Inschrijving inschrijving)
+        public async Task<IActionResult> Create([Bind(("Id,VakId,AcademiejaarId"))] Inschrijving inschrijving)
         {
             if (ModelState.IsValid)
             {

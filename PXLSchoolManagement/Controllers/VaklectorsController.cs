@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PXLSchoolManagement.Data;
 using PXLSchoolManagement.Models;
+using PXLSchoolManagement.Models.ViewModels;
 
 namespace PXLSchoolManagement.Controllers
 {
@@ -56,8 +57,27 @@ namespace PXLSchoolManagement.Controllers
         // GET: Vaklectors/Create
         public IActionResult Create()
         {
-            ViewData["LectorId"] = new SelectList(_context.Lectoren, "LectorId", "LectorId");
-            return View();
+            var lectoren = _context.Lectoren
+                .Include(l => l.Vaklector)
+                .Include(l => l.Gebruiker)
+                .Where(l => l.Vaklector == null)
+                .ToList();
+            var vm = new VaklectorViewModel();
+            var dropdownList = new List<VaklectorDropdown>();
+
+            lectoren.ForEach(lector =>
+            {
+                dropdownList.Add(
+                    new VaklectorDropdown
+                    {
+                        LectorId = lector.LectorId,
+                        Naam = lector.Gebruiker.Naam,
+                        Voornaam = lector.Gebruiker.Voornaam
+                    });
+            });
+
+            vm.VaklectorDropdownList = dropdownList;
+            return View(vm);
         }
 
         // POST: Vaklectors/Create
@@ -65,16 +85,21 @@ namespace PXLSchoolManagement.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("VakLectorId,LectorId")] Vaklector vaklector)
+        public async Task<IActionResult> Create([Bind("VakLectorId,LectorId")] VaklectorViewModel vm)
         {
-            if (ModelState.IsValid)
+            var lector = _context.Lectoren
+                .Include(l => l.Gebruiker)
+                .Include(l => l.Vaklector)
+                .FirstOrDefault(l => vm.LectorId == l.LectorId);
+
+            if (lector.Vaklector == null)
             {
-                _context.Add(vaklector);
+                _context.Add(new Vaklector {  LectorId = vm.LectorId});
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["LectorId"] = new SelectList(_context.Lectoren, "LectorId", "LectorId", vaklector.LectorId);
-            return View(vaklector);
+            ViewData["LectorId"] = new SelectList(_context.Lectoren, "LectorId", "LectorId", vm.LectorId);
+            return View(vm);
         }
 
         // GET: Vaklectors/Edit/5
