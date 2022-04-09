@@ -62,21 +62,16 @@ namespace PXLSchoolManagement.Controllers
                 .Include(l => l.Gebruiker)
                 .Where(l => l.Vaklector == null)
                 .ToList();
+
             var vm = new VaklectorViewModel();
-            var dropdownList = new List<VaklectorDropdown>();
 
-            lectoren.ForEach(lector =>
-            {
-                dropdownList.Add(
-                    new VaklectorDropdown
-                    {
-                        LectorId = lector.LectorId,
-                        Naam = lector.Gebruiker.Naam,
-                        Voornaam = lector.Gebruiker.Voornaam
+            vm.Lectoren = 
+                lectoren.Select(
+                    l => new SelectListItem { 
+                        Text = l.Gebruiker.VolledigeNaam, 
+                        Value = l.LectorId.ToString() 
                     });
-            });
 
-            vm.VaklectorDropdownList = dropdownList;
             return View(vm);
         }
 
@@ -85,7 +80,7 @@ namespace PXLSchoolManagement.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("VakLectorId,LectorId")] VaklectorViewModel vm)
+        public async Task<IActionResult> Create([Bind()] VaklectorViewModel vm)
         {
             var lector = _context.Lectoren
                 .Include(l => l.Gebruiker)
@@ -98,7 +93,7 @@ namespace PXLSchoolManagement.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["LectorId"] = new SelectList(_context.Lectoren, "LectorId", "LectorId", vm.LectorId);
+
             return View(vm);
         }
 
