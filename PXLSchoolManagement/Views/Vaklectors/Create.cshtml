@@ -10,13 +10,10 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
-            <select class="form-select" 
-                asp-for="LectorId" 
-                asp-items="@(new SelectList(Model.VaklectorDropdownList, "LectorId", "VolledigeNaam"))">
-                <option>Please select one</option>
-            </select>
-            <input type="submit" />            
+            @Html.DropDownListFor(model => model.LectorId, Model.Lectoren);
+            <input type="submit" />    
         </form>
+        
     </div>
 </div>
 
