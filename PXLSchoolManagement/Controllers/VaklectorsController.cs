@@ -62,21 +62,16 @@ namespace PXLSchoolManagement.Controllers
                 .Include(l => l.Gebruiker)
                 .Where(l => l.Vaklector == null)
                 .ToList();
+
             var vm = new VaklectorViewModel();
-            var dropdownList = new List<VaklectorDropdown>();
 
-            lectoren.ForEach(lector =>
-            {
-                dropdownList.Add(
-                    new VaklectorDropdown
-                    {
-                        LectorId = lector.LectorId,
-                        Naam = lector.Gebruiker.Naam,
-                        Voornaam = lector.Gebruiker.Voornaam
+            vm.Lectoren = 
+                lectoren.Select(
+                    l => new SelectListItem { 
+                        Text = l.Gebruiker.VolledigeNaam, 
+                        Value = l.LectorId.ToString() 
                     });
-            });
 
-            vm.VaklectorDropdownList = dropdownList;
             return View(vm);
         }
 
@@ -85,20 +80,25 @@ namespace PXLSchoolManagement.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("VakLectorId,LectorId")] VaklectorViewModel vm)
+        public async Task<IActionResult> Create([Bind()] VaklectorViewModel vm)
         {
             var lector = _context.Lectoren
                 .Include(l => l.Gebruiker)
                 .Include(l => l.Vaklector)
                 .FirstOrDefault(l => vm.LectorId == l.LectorId);
+            
+            if (lector == null)
+            {
+                return RedirectToAction("Create", "Vaklectors");
 
+            }
             if (lector.Vaklector == null)
             {
                 _context.Add(new Vaklector {  LectorId = vm.LectorId});
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["LectorId"] = new SelectList(_context.Lectoren, "LectorId", "LectorId", vm.LectorId);
+
             return View(vm);
         }
 

@@ -8,27 +8,26 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PXLSchoolManagement.Data;
 using PXLSchoolManagement.Models;
-using PXLSchoolManagement.ViewModels;
 
 namespace PXLSchoolManagement.Controllers
 {
-    public class StudentenController : Controller
+    public class LectorenController : Controller
     {
         private readonly DataContext _context;
 
-        public StudentenController(DataContext context)
+        public LectorenController(DataContext context)
         {
             _context = context;
         }
 
-        // GET: Studenten
+        // GET: Lectoren
         public async Task<IActionResult> Index()
         {
-            var dataContext = _context.Studenten.Include(s => s.Gebruiker);
+            var dataContext = _context.Lectoren.Include(l => l.Gebruiker);
             return View(await dataContext.ToListAsync());
         }
 
-        // GET: Studenten/Details/5
+        // GET: Lectoren/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -36,53 +35,42 @@ namespace PXLSchoolManagement.Controllers
                 return NotFound();
             }
 
-            var student = await _context.Studenten
-                .Include(s => s.Gebruiker)
-                .FirstOrDefaultAsync(m => m.StudentId == id);
-            if (student == null)
+            var lector = await _context.Lectoren
+                .Include(l => l.Gebruiker)
+                .FirstOrDefaultAsync(m => m.LectorId == id);
+            if (lector == null)
             {
                 return NotFound();
             }
 
-            return View(student);
+            return View(lector);
         }
 
-        // GET: Studenten/Create
+        // GET: Lectoren/Create
         public IActionResult Create()
         {
-            var vm = new StudentViewModel();
-            var gebruikers = _context.Studenten
-                .Include(s => s.Gebruiker)
-                .Where(s => s.Gebruiker.Id == s.GebruikerId);
-
-            vm.Studenten = gebruikers.Select(
-                    l => new SelectListItem
-                    {
-                        Text = l.Gebruiker.VolledigeNaam,
-                        Value = l.Gebruiker.Id.ToString()
-                    });
-
-            return View(vm);
+            ViewData["GebruikerId"] = new SelectList(_context.Gebruikers, "Id", "Id");
+            return View();
         }
 
-        // POST: Studenten/Create
+        // POST: Lectoren/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StudentId,GebruikerId")] Student student)
+        public async Task<IActionResult> Create([Bind("LectorId,GebruikerId")] Lector lector)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(student);
+                _context.Add(lector);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GebruikerId"] = new SelectList(_context.Gebruikers, "Id", "Id", student.GebruikerId);
-            return View(student);
+            ViewData["GebruikerId"] = new SelectList(_context.Gebruikers, "Id", "Id", lector.GebruikerId);
+            return View(lector);
         }
 
-        // GET: Studenten/Edit/5
+        // GET: Lectoren/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -90,23 +78,23 @@ namespace PXLSchoolManagement.Controllers
                 return NotFound();
             }
 
-            var student = await _context.Studenten.FindAsync(id);
-            if (student == null)
+            var lector = await _context.Lectoren.FindAsync(id);
+            if (lector == null)
             {
                 return NotFound();
             }
-            ViewData["GebruikerId"] = new SelectList(_context.Gebruikers, "Id", "Id", student.GebruikerId);
-            return View(student);
+            ViewData["GebruikerId"] = new SelectList(_context.Gebruikers, "Id", "Id", lector.GebruikerId);
+            return View(lector);
         }
 
-        // POST: Studenten/Edit/5
+        // POST: Lectoren/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("StudentId,GebruikerId")] Student student)
+        public async Task<IActionResult> Edit(int id, [Bind("LectorId,GebruikerId")] Lector lector)
         {
-            if (id != student.StudentId)
+            if (id != lector.LectorId)
             {
                 return NotFound();
             }
@@ -115,12 +103,12 @@ namespace PXLSchoolManagement.Controllers
             {
                 try
                 {
-                    _context.Update(student);
+                    _context.Update(lector);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!StudentExists(student.StudentId))
+                    if (!LectorExists(lector.LectorId))
                     {
                         return NotFound();
                     }
@@ -131,11 +119,11 @@ namespace PXLSchoolManagement.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GebruikerId"] = new SelectList(_context.Gebruikers, "Id", "Id", student.GebruikerId);
-            return View(student);
+            ViewData["GebruikerId"] = new SelectList(_context.Gebruikers, "Id", "Id", lector.GebruikerId);
+            return View(lector);
         }
 
-        // GET: Studenten/Delete/5
+        // GET: Lectoren/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -143,31 +131,31 @@ namespace PXLSchoolManagement.Controllers
                 return NotFound();
             }
 
-            var student = await _context.Studenten
-                .Include(s => s.Gebruiker)
-                .FirstOrDefaultAsync(m => m.StudentId == id);
-            if (student == null)
+            var lector = await _context.Lectoren
+                .Include(l => l.Gebruiker)
+                .FirstOrDefaultAsync(m => m.LectorId == id);
+            if (lector == null)
             {
                 return NotFound();
             }
 
-            return View(student);
+            return View(lector);
         }
 
-        // POST: Studenten/Delete/5
+        // POST: Lectoren/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var student = await _context.Studenten.FindAsync(id);
-            _context.Studenten.Remove(student);
+            var lector = await _context.Lectoren.FindAsync(id);
+            _context.Lectoren.Remove(lector);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool StudentExists(int id)
+        private bool LectorExists(int id)
         {
-            return _context.Studenten.Any(e => e.StudentId == id);
+            return _context.Lectoren.Any(e => e.LectorId == id);
         }
     }
 }
