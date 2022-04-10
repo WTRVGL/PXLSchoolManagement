@@ -8,6 +8,6 @@ namespace PXLSchoolManagement.Models
         public int LectorId { get; set; }
         public int GebruikerId { get; set; }
         public Gebruiker Gebruiker { get; set; }
-        public Vaklector Vaklector { get; set; }
+        public Vaklector? Vaklector { get; set; }
     }
 }

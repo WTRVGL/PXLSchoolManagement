@@ -9,6 +9,6 @@ namespace PXLSchoolManagement.Models
         public string Naam { get; set; }
         public string Voornaam { get; set; }
         public string Email { get; set; }
-        public string VolledigeNaam => Voornaam + "" + Naam;
+        public string VolledigeNaam => Voornaam + " " + Naam;
     }
 }

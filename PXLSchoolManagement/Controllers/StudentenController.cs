@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PXLSchoolManagement.Data;
 using PXLSchoolManagement.Models;
+using PXLSchoolManagement.ViewModels;
 
 namespace PXLSchoolManagement.Controllers
 {
@@ -49,8 +50,19 @@ namespace PXLSchoolManagement.Controllers
         // GET: Studenten/Create
         public IActionResult Create()
         {
-            ViewData["GebruikerId"] = new SelectList(_context.Gebruikers, "Id", "Id");
-            return View();
+            var vm = new StudentViewModel();
+            var gebruikers = _context.Studenten
+                .Include(s => s.Gebruiker)
+                .Where(s => s.Gebruiker.Id == s.GebruikerId);
+
+            vm.Studenten = gebruikers.Select(
+                    l => new SelectListItem
+                    {
+                        Text = l.Gebruiker.VolledigeNaam,
+                        Value = l.Gebruiker.Id.ToString()
+                    });
+
+            return View(vm);
         }
 
         // POST: Studenten/Create
