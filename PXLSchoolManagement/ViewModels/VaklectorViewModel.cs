@@ -5,6 +5,6 @@ namespace PXLSchoolManagement.Models.ViewModels
     public class VaklectorViewModel
     {
         public int LectorId { get; set; }
-        public IEnumerable<SelectListItem> Lectoren { get; set; }
+        public IEnumerable<SelectListItem>? Lectoren { get; set; }
     }
 }

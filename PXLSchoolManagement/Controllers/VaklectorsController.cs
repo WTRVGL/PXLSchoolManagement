@@ -86,7 +86,12 @@ namespace PXLSchoolManagement.Controllers
                 .Include(l => l.Gebruiker)
                 .Include(l => l.Vaklector)
                 .FirstOrDefault(l => vm.LectorId == l.LectorId);
+            
+            if (lector == null)
+            {
+                return RedirectToAction("Create", "Vaklectors");
 
+            }
             if (lector.Vaklector == null)
             {
                 _context.Add(new Vaklector {  LectorId = vm.LectorId});
