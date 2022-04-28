@@ -10,6 +10,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\js\**" />
+    <Compile Remove="wwwroot\lib\adminlte\js\**" />
+    <Content Remove="wwwroot\js\**" />
+    <Content Remove="wwwroot\lib\adminlte\js\**" />
+    <EmbeddedResource Remove="wwwroot\js\**" />
+    <EmbeddedResource Remove="wwwroot\lib\adminlte\js\**" />
+    <None Remove="wwwroot\js\**" />
+    <None Remove="wwwroot\lib\adminlte\js\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\css\adminlte.css" />
     <None Include="wwwroot\css\adminlte.css.map" />
     <None Include="wwwroot\css\adminlte.min.css" />
@@ -47,14 +58,6 @@
     <None Include="wwwroot\img\user6-128x128.jpg" />
     <None Include="wwwroot\img\user7-128x128.jpg" />
     <None Include="wwwroot\img\user8-128x128.jpg" />
-    <None Include="wwwroot\js\adminlte.js" />
-    <None Include="wwwroot\js\adminlte.js.map" />
-    <None Include="wwwroot\js\adminlte.min.js" />
-    <None Include="wwwroot\js\adminlte.min.js.map" />
-    <None Include="wwwroot\lib\adminlte\js\demo.js" />
-    <None Include="wwwroot\lib\adminlte\js\pages\dashboard.js" />
-    <None Include="wwwroot\lib\adminlte\js\pages\dashboard2.js" />
-    <None Include="wwwroot\lib\adminlte\js\pages\dashboard3.js" />
   </ItemGroup>
 
   <ItemGroup>
