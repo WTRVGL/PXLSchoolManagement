@@ -51,6 +51,10 @@
     <None Include="wwwroot\js\adminlte.js.map" />
     <None Include="wwwroot\js\adminlte.min.js" />
     <None Include="wwwroot\js\adminlte.min.js.map" />
+    <None Include="wwwroot\lib\adminlte\js\demo.js" />
+    <None Include="wwwroot\lib\adminlte\js\pages\dashboard.js" />
+    <None Include="wwwroot\lib\adminlte\js\pages\dashboard2.js" />
+    <None Include="wwwroot\lib\adminlte\js\pages\dashboard3.js" />
   </ItemGroup>
 
   <ItemGroup>
