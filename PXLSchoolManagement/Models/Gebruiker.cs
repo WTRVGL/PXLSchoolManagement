@@ -1,11 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace PXLSchoolManagement.Models
 {
-    public class Gebruiker
+    public class Gebruiker : IdentityUser
     {
         [Key]
-        public int Id { get; set; }
         public string Naam { get; set; }
         public string Voornaam { get; set; }
         public string Email { get; set; }

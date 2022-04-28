@@ -1,12 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using PXLSchoolManagement.Models;
 
 namespace PXLSchoolManagement.Data
 {
-    public class DataContext : DbContext
+    public class DataContext : IdentityDbContext<Gebruiker>
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<Academiejaar> Academiejaren { get; set; }
@@ -17,11 +22,6 @@ namespace PXLSchoolManagement.Data
         public DbSet<Student> Studenten { get; set; }
         public DbSet<Vak> Vakken { get; set; }
         public DbSet<Vaklector> Vaklectoren { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            
-        }
 
     }
 }

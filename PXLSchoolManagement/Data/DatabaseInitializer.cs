@@ -6,7 +6,7 @@ namespace PXLSchoolManagement.Data
     {
         public static void InitializeDb(DataContext context)
         {
-            if (context.Gebruikers.Any())
+            if (context.Studenten.Any())
             {
                 return;
             }
