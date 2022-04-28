@@ -67,7 +67,7 @@ namespace PXLSchoolManagement.Controllers
         }
 
         // GET: Gebruikers/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string? id)
         {
             if (id == null)
             {
@@ -118,7 +118,7 @@ namespace PXLSchoolManagement.Controllers
         }
 
         // GET: Gebruikers/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string? id)
         {
             if (id == null)
             {

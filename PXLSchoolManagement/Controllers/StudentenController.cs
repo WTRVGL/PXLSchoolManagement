@@ -53,7 +53,7 @@ namespace PXLSchoolManagement.Controllers
             var vm = new StudentViewModel();
             var gebruikers = _context.Studenten
                 .Include(s => s.Gebruiker)
-                .Where(s => s.Gebruiker.Id == s.GebruikerId.ToString());
+                .Where(s => s.Gebruiker.Id == s.GebruikerId);
 
             vm.Studenten = gebruikers.Select(
                     l => new SelectListItem
