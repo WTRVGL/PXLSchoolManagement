@@ -19,14 +19,11 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 var app = builder.Build();
 
-using (var serviceScope = app.Services
-    .GetRequiredService<IServiceScopeFactory>()
-    .CreateScope())
-        {
-    using var context = serviceScope.ServiceProvider.GetService<DataContext>();
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<DataContext>();
     context.Database.Migrate();
     DatabaseInitializer.InitializeDb(context);
-    
 }
 
 // Configure the HTTP request pipeline.
