@@ -6,7 +6,7 @@ namespace PXLSchoolManagement.Data
     {
         public static void InitializeDb(DataContext context)
         {
-            if (context.Gebruikers.Any())
+            if (context.Studenten.Any())
             {
                 return;
             }
@@ -105,15 +105,15 @@ namespace PXLSchoolManagement.Data
 
             var studenten = new List<Student>
             {
-                new Student { GebruikerId = 1, Handboeken = new List<Handboek>(), Inschrijvingen = new List<Inschrijving>()},
-                new Student { GebruikerId = 2, Handboeken = new List<Handboek>(), Inschrijvingen = new List<Inschrijving>()},
-                new Student { GebruikerId = 3, Handboeken = new List<Handboek>(), Inschrijvingen = new List<Inschrijving>()},
-                new Student { GebruikerId = 4, Handboeken = new List<Handboek>(), Inschrijvingen = new List<Inschrijving>()},
-                new Student { GebruikerId = 5, Handboeken = new List<Handboek>(), Inschrijvingen = new List<Inschrijving>()},
-                new Student { GebruikerId = 6, Handboeken = new List<Handboek>(), Inschrijvingen = new List<Inschrijving>()},
-                new Student { GebruikerId = 7, Handboeken = new List<Handboek>(), Inschrijvingen = new List<Inschrijving>()},
-                new Student { GebruikerId = 8, Handboeken = new List<Handboek>(), Inschrijvingen = new List<Inschrijving>()},
-                new Student { GebruikerId = 9, Handboeken = new List<Handboek>(), Inschrijvingen = new List<Inschrijving>()},
+                new Student { GebruikerId = gebruikers[0].Id, Handboeken = new List<Handboek>(), Inschrijvingen = new List<Inschrijving>()},
+                new Student { GebruikerId = gebruikers[1].Id, Handboeken = new List<Handboek>(), Inschrijvingen = new List<Inschrijving>()},
+                new Student { GebruikerId = gebruikers[2].Id, Handboeken = new List<Handboek>(), Inschrijvingen = new List<Inschrijving>()},
+                new Student { GebruikerId = gebruikers[3].Id, Handboeken = new List<Handboek>(), Inschrijvingen = new List<Inschrijving>()},
+                new Student { GebruikerId = gebruikers[4].Id, Handboeken = new List<Handboek>(), Inschrijvingen = new List<Inschrijving>()},
+                new Student { GebruikerId = gebruikers[5].Id, Handboeken = new List<Handboek>(), Inschrijvingen = new List<Inschrijving>()},
+                new Student { GebruikerId = gebruikers[6].Id, Handboeken = new List<Handboek>(), Inschrijvingen = new List<Inschrijving>()},
+                new Student { GebruikerId = gebruikers[7].Id, Handboeken = new List<Handboek>(), Inschrijvingen = new List<Inschrijving>()},
+                new Student { GebruikerId = gebruikers[8].Id, Handboeken = new List<Handboek>(), Inschrijvingen = new List<Inschrijving>()},
 
             };
 

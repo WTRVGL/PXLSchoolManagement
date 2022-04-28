@@ -27,7 +27,7 @@ namespace PXLSchoolManagement.Controllers
         }
 
         // GET: Gebruikers/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
@@ -35,7 +35,7 @@ namespace PXLSchoolManagement.Controllers
             }
 
             var gebruiker = await _context.Gebruikers
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id.ToString());
             if (gebruiker == null)
             {
                 return NotFound();
@@ -67,7 +67,7 @@ namespace PXLSchoolManagement.Controllers
         }
 
         // GET: Gebruikers/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string? id)
         {
             if (id == null)
             {
@@ -87,7 +87,7 @@ namespace PXLSchoolManagement.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Naam,Voornaam,Email")] Gebruiker gebruiker)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,Naam,Voornaam,Email")] Gebruiker gebruiker)
         {
             if (id != gebruiker.Id)
             {
@@ -118,7 +118,7 @@ namespace PXLSchoolManagement.Controllers
         }
 
         // GET: Gebruikers/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string? id)
         {
             if (id == null)
             {
@@ -126,7 +126,7 @@ namespace PXLSchoolManagement.Controllers
             }
 
             var gebruiker = await _context.Gebruikers
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id.ToString());
             if (gebruiker == null)
             {
                 return NotFound();
@@ -146,7 +146,7 @@ namespace PXLSchoolManagement.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool GebruikerExists(int id)
+        private bool GebruikerExists(string id)
         {
             return _context.Gebruikers.Any(e => e.Id == id);
         }
