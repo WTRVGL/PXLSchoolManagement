@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PXLSchoolManagement.Data;
+using Microsoft.AspNetCore.Identity;
+using PXLSchoolManagement.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +18,9 @@ builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString($"{debugMode}SqlServer"));
 });
+
+builder.Services.AddDefaultIdentity<Gebruiker>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<DataContext>(); ;
 
 var app = builder.Build();
 
@@ -38,6 +43,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication();;
 
 app.UseAuthorization();
 
