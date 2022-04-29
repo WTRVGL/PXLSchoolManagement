@@ -1,10 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using PXLSchoolManagement.Data;
+using Microsoft.AspNetCore.Identity;
+using PXLSchoolManagement.Models;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 
 var debugMode = Environment.GetEnvironmentVariable("DEBUG_MODE");
 if(debugMode == null)
@@ -16,6 +20,9 @@ builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString($"{debugMode}SqlServer"));
 });
+
+builder.Services.AddDefaultIdentity<Gebruiker>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<DataContext>(); ;
 
 var app = builder.Build();
 
@@ -38,9 +45,10 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
