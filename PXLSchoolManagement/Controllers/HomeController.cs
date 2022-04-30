@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 using PXLSchoolManagement.Data;
 using PXLSchoolManagement.Models;
 using PXLSchoolManagement.ViewModels;
@@ -10,11 +11,13 @@ namespace PXLSchoolManagement.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly DataContext _context;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public HomeController(ILogger<HomeController> logger, DataContext context)
+        public HomeController(ILogger<HomeController> logger, DataContext context, IHttpContextAccessor httpContextAccessor)
         {
             _logger = logger;
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public IActionResult Index()

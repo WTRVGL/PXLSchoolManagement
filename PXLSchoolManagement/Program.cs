@@ -21,7 +21,7 @@ builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString($"{debugMode}SqlServer"));
 });
 
-builder.Services.AddDefaultIdentity<Gebruiker>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<Gebruiker>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<DataContext>(); ;
 
 var app = builder.Build();
@@ -29,8 +29,10 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<DataContext>();
+    var userManager = scope.ServiceProvider.GetRequiredService <UserManager<Gebruiker>>();
+    context.Database.EnsureDeleted();
     context.Database.Migrate();
-    DatabaseInitializer.InitializeDb(context);
+    DatabaseInitializer.InitializeDb(context, userManager);
 }
 
 // Configure the HTTP request pipeline.

@@ -1,10 +1,11 @@
-﻿using PXLSchoolManagement.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using PXLSchoolManagement.Models;
 
 namespace PXLSchoolManagement.Data
 {
     public static class DatabaseInitializer
     {
-        public static void InitializeDb(DataContext context)
+        public static void InitializeDb(DataContext context, UserManager<Gebruiker> userManager)
         {
             if (context.Studenten.Any())
             {
@@ -13,20 +14,26 @@ namespace PXLSchoolManagement.Data
 
             var gebruikers = new List<Gebruiker>
             {
-                new Gebruiker {Voornaam = "Wouter", Naam = "Vangeel", Email = "wouter_vangeel4@hotmail.com"},
-                new Gebruiker {Voornaam = "Dieter", Naam = "Caerpentier", Email = "dieter.carpentier@gmail.com"},
-                new Gebruiker {Voornaam = "Pieterjan", Naam = "Mahieu", Email = "pieterjan.mahieu@pxl.be"},
-                new Gebruiker {Voornaam = "Wout", Naam = "Dhondt", Email = "wouter.dhont@hotmail.be"},
-                new Gebruiker {Voornaam = "Steve", Naam = "Vandewiele", Email = "steve_vandewiele@pxl.be"},
-                new Gebruiker {Voornaam = "Ilke", Naam = "Mortier", Email = "ilke.mortier@pxl.be"},
-                new Gebruiker {Voornaam = "Anke", Naam = "Beyls", Email = "anke-beyls@hotmail.com"},
-                new Gebruiker {Voornaam = "Mélodie", Naam = "De Maseneer", Email = "melodie_dm@pxl.be"},
-                new Gebruiker {Voornaam = "Cathy", Naam = "Blomme", Email = "cathyblomme@pxl.be"},
-                new Gebruiker {Voornaam = "Jeffry", Naam= "Steegmans", Email= "jeffrey.steegmans@pxl.be"},
-                new Gebruiker {Voornaam = "Kristof", Naam = "Palmaers", Email = "kristof.palmaers@pxl.be"},
-                new Gebruiker {Voornaam = "Paul", Naam = "Dox", Email = "paul.dox@pxl.be"},
-                new Gebruiker {Voornaam = "Patricia", Naam = "Briers", Email = "patricia.briers@pxl.be"}
+                new Gebruiker { Voornaam = "Wouter", Naam = "Vangeel", UserName = "wouter_vangeel4@hotmail.com"},
+                new Gebruiker {Voornaam = "Dieter", Naam = "Caerpentier", UserName = "dieter.carpentier@gmail.com"},
+                new Gebruiker {Voornaam = "Pieterjan", Naam = "Mahieu", UserName = "pieterjan.mahieu@pxl.be"},
+                new Gebruiker {Voornaam = "Wout", Naam = "Dhondt", UserName = "wouter.dhont@hotmail.be"},
+                new Gebruiker {Voornaam = "Steve", Naam = "Vandewiele", UserName = "steve_vandewiele@pxl.be"},
+                new Gebruiker {Voornaam = "Ilke", Naam = "Mortier", UserName = "ilke.mortier@pxl.be"},
+                new Gebruiker {Voornaam = "Anke", Naam = "Beyls", UserName = "anke-beyls@hotmail.com"},
+                new Gebruiker {Voornaam = "Mélodie", Naam = "De Maseneer", UserName = "melodie_dm@pxl.be"},
+                new Gebruiker {Voornaam = "Cathy", Naam = "Blomme", UserName = "cathyblomme@pxl.be"},
+                new Gebruiker {Voornaam = "Jeffry", Naam= "Steegmans", UserName= "jeffrey.steegmans@pxl.be"},
+                new Gebruiker {Voornaam = "Kristof", Naam = "Palmaers", UserName = "kristof.palmaers@pxl.be"},
+                new Gebruiker {Voornaam = "Paul", Naam = "Dox", UserName = "paul.dox@pxl.be"},
+                new Gebruiker {Voornaam = "Patricia", Naam = "Briers", UserName = "patricia.briers@pxl.be"}
             };
+
+            gebruikers.ForEach(user =>
+            {
+                user.NormalizedUserName = user.UserName.ToUpper();
+                user.PasswordHash = userManager.PasswordHasher.HashPassword(user, "Passwoord1.");
+            });
 
             context.Gebruikers.AddRange(gebruikers);
             context.SaveChanges();

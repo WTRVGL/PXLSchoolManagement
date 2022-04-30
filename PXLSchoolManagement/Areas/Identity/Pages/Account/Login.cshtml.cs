@@ -21,12 +21,14 @@ namespace PXLSchoolManagement.Areas.Identity.Pages.Account
     public class LoginModel : PageModel
     {
         private readonly SignInManager<Gebruiker> _signInManager;
+        private readonly UserManager<Gebruiker> _userManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<Gebruiker> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<Gebruiker> signInManager, ILogger<LoginModel> logger, UserManager<Gebruiker> userManager)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _userManager = userManager;
         }
 
         /// <summary>
@@ -110,6 +112,7 @@ namespace PXLSchoolManagement.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
+                var user = await _userManager.FindByNameAsync(Input.Email);
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);

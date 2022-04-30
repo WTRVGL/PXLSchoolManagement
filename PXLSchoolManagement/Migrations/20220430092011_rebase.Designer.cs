@@ -12,8 +12,8 @@ using PXLSchoolManagement.Data;
 namespace PXLSchoolManagement.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220424013804_identity")]
-    partial class identity
+    [Migration("20220430092011_rebase")]
+    partial class rebase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -149,10 +149,12 @@ namespace PXLSchoolManagement.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -189,10 +191,12 @@ namespace PXLSchoolManagement.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -231,7 +235,6 @@ namespace PXLSchoolManagement.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -354,15 +357,13 @@ namespace PXLSchoolManagement.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LectorId"), 1L, 1);
 
-                    b.Property<int>("GebruikerId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("GebruikerId1")
+                    b.Property<string>("GebruikerId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("LectorId");
 
-                    b.HasIndex("GebruikerId1");
+                    b.HasIndex("GebruikerId");
 
                     b.ToTable("Lectoren");
                 });
@@ -375,15 +376,13 @@ namespace PXLSchoolManagement.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentId"), 1L, 1);
 
-                    b.Property<int>("GebruikerId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("GebruikerId1")
+                    b.Property<string>("GebruikerId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("StudentId");
 
-                    b.HasIndex("GebruikerId1");
+                    b.HasIndex("GebruikerId");
 
                     b.ToTable("Studenten");
                 });
@@ -557,7 +556,9 @@ namespace PXLSchoolManagement.Migrations
                 {
                     b.HasOne("PXLSchoolManagement.Models.Gebruiker", "Gebruiker")
                         .WithMany()
-                        .HasForeignKey("GebruikerId1");
+                        .HasForeignKey("GebruikerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Gebruiker");
                 });
@@ -566,7 +567,9 @@ namespace PXLSchoolManagement.Migrations
                 {
                     b.HasOne("PXLSchoolManagement.Models.Gebruiker", "Gebruiker")
                         .WithMany()
-                        .HasForeignKey("GebruikerId1");
+                        .HasForeignKey("GebruikerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Gebruiker");
                 });
