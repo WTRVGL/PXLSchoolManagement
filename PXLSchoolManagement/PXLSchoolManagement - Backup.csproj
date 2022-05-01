@@ -10,9 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\js\**" />
     <Compile Remove="wwwroot\lib\adminlte\js\**" />
+    <Content Remove="wwwroot\js\**" />
     <Content Remove="wwwroot\lib\adminlte\js\**" />
+    <EmbeddedResource Remove="wwwroot\js\**" />
     <EmbeddedResource Remove="wwwroot\lib\adminlte\js\**" />
+    <None Remove="wwwroot\js\**" />
     <None Remove="wwwroot\lib\adminlte\js\**" />
   </ItemGroup>
 
@@ -76,12 +80,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Data\" />
     <Folder Include="Migrations\" />
-    <Folder Include="Models\" />
-    <Folder Include="wwwroot\images\" />
-    <Folder Include="wwwroot\lib\jquery\dist\" />
   </ItemGroup>
 
 </Project>
