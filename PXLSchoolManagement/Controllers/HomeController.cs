@@ -4,6 +4,7 @@ using PXLSchoolManagement.Data;
 using PXLSchoolManagement.Models;
 using PXLSchoolManagement.ViewModels;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PXLSchoolManagement.Controllers
 {
@@ -20,6 +21,7 @@ namespace PXLSchoolManagement.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             var vm = new IndexViewModel
@@ -31,17 +33,6 @@ namespace PXLSchoolManagement.Controllers
             };
 
             return View(vm);
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
