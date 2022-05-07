@@ -13,17 +13,20 @@ namespace PXLSchoolManagement.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly DataContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly UserManager<Gebruiker> _userManager;
 
-        public HomeController(ILogger<HomeController> logger, DataContext context, IHttpContextAccessor httpContextAccessor)
+        public HomeController(ILogger<HomeController> logger, DataContext context, IHttpContextAccessor httpContextAccessor, UserManager<Gebruiker> userManager)
         {
             _logger = logger;
             _context = context;
             _httpContextAccessor = httpContextAccessor;
+            _userManager = userManager;
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
+            var x = User.IsInRole("Admin");
             var vm = new IndexViewModel
             {
                 Handboeken = _context.Handboeken.ToList(),

@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PXLSchoolManagement.Models;
 
 namespace PXLSchoolManagement.Data
 {
-    public class DataContext : IdentityDbContext<Gebruiker>
+    public class DataContext : IdentityDbContext<Gebruiker, IdentityRole, string>
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {

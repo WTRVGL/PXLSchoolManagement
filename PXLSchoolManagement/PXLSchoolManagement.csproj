@@ -10,13 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\lib\adminlte\js\**" />
-    <Content Remove="wwwroot\lib\adminlte\js\**" />
-    <EmbeddedResource Remove="wwwroot\lib\adminlte\js\**" />
-    <None Remove="wwwroot\lib\adminlte\js\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="wwwroot\css\adminlte.css" />
     <None Include="wwwroot\css\adminlte.css.map" />
     <None Include="wwwroot\css\adminlte.min.css" />

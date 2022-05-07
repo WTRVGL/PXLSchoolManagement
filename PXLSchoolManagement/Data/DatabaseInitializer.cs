@@ -12,9 +12,18 @@ namespace PXLSchoolManagement.Data
                 return;
             }
 
+            var roles = new List<IdentityRole>
+            {
+                new IdentityRole { Name = "Student", NormalizedName = "STUDENT"},
+                new IdentityRole { Name = "Admin", NormalizedName = "ADMIN"},
+                new IdentityRole { Name = "Lector", NormalizedName = "LECTOR"}
+            };
+            context.Roles.AddRange(roles);
+            context.SaveChanges();
+
             var gebruikers = new List<Gebruiker>
             {
-                new Gebruiker { Voornaam = "Wouter", Naam = "Vangeel", UserName = "wouter_vangeel4@hotmail.com"},
+                new Gebruiker {Voornaam = "Wouter", Naam = "Vangeel", UserName = "wouter_vangeel4@hotmail.com"},
                 new Gebruiker {Voornaam = "Dieter", Naam = "Caerpentier", UserName = "dieter.carpentier@gmail.com"},
                 new Gebruiker {Voornaam = "Pieterjan", Naam = "Mahieu", UserName = "pieterjan.mahieu@pxl.be"},
                 new Gebruiker {Voornaam = "Wout", Naam = "Dhondt", UserName = "wouter.dhont@hotmail.be"},
@@ -36,6 +45,26 @@ namespace PXLSchoolManagement.Data
             });
 
             context.Gebruikers.AddRange(gebruikers);
+            context.SaveChanges();
+
+            var userRoles = new List<IdentityUserRole<string>>
+            {
+                new IdentityUserRole<string>{ UserId = gebruikers[0].Id, RoleId = roles[1].Id },
+                new IdentityUserRole<string>{ UserId = gebruikers[1].Id, RoleId = roles[0].Id },
+                new IdentityUserRole<string>{ UserId = gebruikers[2].Id, RoleId = roles[0].Id },
+                new IdentityUserRole<string>{ UserId = gebruikers[3].Id, RoleId = roles[0].Id },
+                new IdentityUserRole<string>{ UserId = gebruikers[4].Id, RoleId = roles[0].Id },
+                new IdentityUserRole<string>{ UserId = gebruikers[5].Id, RoleId = roles[0].Id },
+                new IdentityUserRole<string>{ UserId = gebruikers[6].Id, RoleId = roles[0].Id },
+                new IdentityUserRole<string>{ UserId = gebruikers[7].Id, RoleId = roles[0].Id },
+                new IdentityUserRole<string>{ UserId = gebruikers[8].Id, RoleId = roles[0].Id },
+                new IdentityUserRole<string>{ UserId = gebruikers[9].Id, RoleId = roles[2].Id },
+                new IdentityUserRole<string>{ UserId = gebruikers[10].Id, RoleId = roles[2].Id },
+                new IdentityUserRole<string>{ UserId = gebruikers[11].Id, RoleId = roles[2].Id },
+                new IdentityUserRole<string>{ UserId = gebruikers[12].Id, RoleId = roles[2].Id },
+            };
+
+            context.UserRoles.AddRange(userRoles);
             context.SaveChanges();
 
             var vakken = new List<Vak>
@@ -188,6 +217,7 @@ namespace PXLSchoolManagement.Data
 
             context.Handboeken.AddRange(handboeken);
             context.SaveChanges();
+
 
         }
     }

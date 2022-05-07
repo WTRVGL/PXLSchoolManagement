@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PXLSchoolManagement.Data;
 
@@ -11,9 +12,10 @@ using PXLSchoolManagement.Data;
 namespace PXLSchoolManagement.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220502063231_roles")]
+    partial class roles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,9 +78,6 @@ namespace PXLSchoolManagement.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("GebruikerId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Name")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -88,8 +87,6 @@ namespace PXLSchoolManagement.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GebruikerId");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
@@ -470,13 +467,6 @@ namespace PXLSchoolManagement.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.HasOne("PXLSchoolManagement.Models.Gebruiker", null)
-                        .WithMany("Roles")
-                        .HasForeignKey("GebruikerId");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -594,11 +584,6 @@ namespace PXLSchoolManagement.Migrations
             modelBuilder.Entity("PXLSchoolManagement.Models.Academiejaar", b =>
                 {
                     b.Navigation("Inschrijvingen");
-                });
-
-            modelBuilder.Entity("PXLSchoolManagement.Models.Gebruiker", b =>
-                {
-                    b.Navigation("Roles");
                 });
 
             modelBuilder.Entity("PXLSchoolManagement.Models.Lector", b =>
