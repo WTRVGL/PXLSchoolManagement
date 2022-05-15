@@ -138,7 +138,34 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
+           <li class="nav-item">
+                <a class="nav-link" asp-area="" asp-controller="Inschrijvingen" asp-action="Index">
+                    <i class="fas fa-chalkboard nav-icon"></i>
+                    <p>Inschrijvingen</p>
+                  </a>
+          </li>
+          <li class="nav-item">
+                <a class="nav-link" asp-area="" asp-controller="Handboeken" asp-action="Index">
+                    <i class="fas fa-book nav-icon"></i>
+                    <p>Handboeken</p>
+                  </a>
+          </li>
+          <!--Gebruikers list-->
+          @{
+              if(User.IsInRole("Student")){
+              }
+              
+              if(User.IsInRole("Lector")){
+                  <li class="nav-item">
+                <a class="nav-link" asp-area="" asp-controller="Studenten" asp-action="Index">
+                    <i class="fas fa-user-tie nav-icon"></i>
+                    <p>Mijn studenten</p>
+                  </a>
+              </li>
+              }
+
+              else{
+                  <li class="nav-item menu-closed">
             <a href="#" class="nav-link active">
               <i class="fas fa-users mr-2"></i>
               <p>
@@ -168,18 +195,10 @@
               </li>
             </ul>
           </li>
-          <!--
-              <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Simple Link
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
-          </li>
-          -->
+              }
+          }
           
+                  
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
