@@ -23,7 +23,6 @@ namespace PXLSchoolManagement.Controllers
             _userManager = userManager;
         }
 
-        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             var x = User.IsInRole("Admin");
