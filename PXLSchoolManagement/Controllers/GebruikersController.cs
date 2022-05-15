@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -21,12 +22,14 @@ namespace PXLSchoolManagement.Controllers
         }
 
         // GET: Gebruikers
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Gebruikers.ToListAsync());
         }
 
         // GET: Gebruikers/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -45,6 +48,7 @@ namespace PXLSchoolManagement.Controllers
         }
 
         // GET: Gebruikers/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -55,6 +59,7 @@ namespace PXLSchoolManagement.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("Id,Naam,Voornaam,Email")] Gebruiker gebruiker)
         {
             if (ModelState.IsValid)
@@ -67,6 +72,8 @@ namespace PXLSchoolManagement.Controllers
         }
 
         // GET: Gebruikers/Edit/5
+
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(string? id)
         {
             if (id == null)
@@ -87,6 +94,7 @@ namespace PXLSchoolManagement.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(string id, [Bind("Id,Naam,Voornaam,Email")] Gebruiker gebruiker)
         {
             if (id != gebruiker.Id)
@@ -118,6 +126,7 @@ namespace PXLSchoolManagement.Controllers
         }
 
         // GET: Gebruikers/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(string? id)
         {
             if (id == null)
@@ -138,6 +147,7 @@ namespace PXLSchoolManagement.Controllers
         // POST: Gebruikers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var gebruiker = await _context.Gebruikers.FindAsync(id);
