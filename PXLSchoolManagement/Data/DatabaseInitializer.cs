@@ -113,19 +113,19 @@ namespace PXLSchoolManagement.Data
             var inschrijvingen = new List<Inschrijving>
             {
                 new Inschrijving {
-                    AcademiejaarId = 10, 
+                    AcademiejaarId = 9, 
                     Vak = vakken.FirstOrDefault<Vak>(vak => vak.VakNaam == "C# Web"), 
                     Studenten = new List<Student>(),
                     Vaklectors = new List<Vaklector>()
                 },
                 new Inschrijving {
-                    AcademiejaarId = 10,
+                    AcademiejaarId = 9,
                     Vak = vakken.FirstOrDefault<Vak>(vak => vak.VakNaam == "Data Essentials"),
                     Studenten = new List<Student>(),
                     Vaklectors = new List<Vaklector>()
                 },
                 new Inschrijving {
-                    AcademiejaarId = 10,
+                    AcademiejaarId = 9,
                     Vak = vakken.FirstOrDefault<Vak>(vak => vak.VakNaam == "C# Advanced"),
                     Studenten = new List<Student>(),
                     Vaklectors = new List<Vaklector>()
@@ -137,7 +137,7 @@ namespace PXLSchoolManagement.Data
                     Vaklectors = new List<Vaklector>()
                 },
                 new Inschrijving {
-                    AcademiejaarId = 10,
+                    AcademiejaarId = 9,
                     Vak = vakken.FirstOrDefault<Vak>(vak => vak.VakNaam == "C# Essentials"),
                     Studenten = new List<Student>(),
                     Vaklectors = new List<Vaklector>()
