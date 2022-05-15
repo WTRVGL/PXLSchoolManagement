@@ -35,14 +35,22 @@ namespace PXLSchoolManagement.Data
                 new Gebruiker {Voornaam = "Jeffry", Naam= "Steegmans", UserName= "jeffrey.steegmans@pxl.be"},
                 new Gebruiker {Voornaam = "Kristof", Naam = "Palmaers", UserName = "kristof.palmaers@pxl.be"},
                 new Gebruiker {Voornaam = "Paul", Naam = "Dox", UserName = "paul.dox@pxl.be"},
-                new Gebruiker {Voornaam = "Patricia", Naam = "Briers", UserName = "patricia.briers@pxl.be"}
+                new Gebruiker {Voornaam = "Patricia", Naam = "Briers", UserName = "patricia.briers@pxl.be"},
+                new Gebruiker {Voornaam = "Student", Naam = "van PXL", UserName = "student@pxl.be"},
+                new Gebruiker {Voornaam = "Admin", Naam = "van PXL", UserName = "admin@pxl.be"}
             };
 
-            gebruikers.ForEach(user =>
+            for (int i = 0; i < 13; i++)
             {
-                user.NormalizedUserName = user.UserName.ToUpper();
-                user.PasswordHash = userManager.PasswordHasher.HashPassword(user, "Passwoord1.");
-            });
+                gebruikers[i].NormalizedUserName = gebruikers[i].UserName.ToUpper();
+                gebruikers[i].PasswordHash = userManager.PasswordHasher.HashPassword(gebruikers[i], "Passwoord1.");
+            }
+
+            gebruikers[13].NormalizedUserName = gebruikers[13].UserName.ToUpper();
+            gebruikers[13].PasswordHash = userManager.PasswordHasher.HashPassword(gebruikers[13], "Student123!");
+
+            gebruikers[14].NormalizedUserName = gebruikers[14].UserName.ToUpper();
+            gebruikers[14].PasswordHash = userManager.PasswordHasher.HashPassword(gebruikers[14], "Admin456!");
 
             context.Gebruikers.AddRange(gebruikers);
             context.SaveChanges();
@@ -62,6 +70,8 @@ namespace PXLSchoolManagement.Data
                 new IdentityUserRole<string>{ UserId = gebruikers[10].Id, RoleId = roles[2].Id },
                 new IdentityUserRole<string>{ UserId = gebruikers[11].Id, RoleId = roles[2].Id },
                 new IdentityUserRole<string>{ UserId = gebruikers[12].Id, RoleId = roles[2].Id },
+                new IdentityUserRole<string>{ UserId = gebruikers[13].Id, RoleId = roles[0].Id },
+                new IdentityUserRole<string>{ UserId = gebruikers[14].Id, RoleId = roles[1].Id },
             };
 
             context.UserRoles.AddRange(userRoles);
