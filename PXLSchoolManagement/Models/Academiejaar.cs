@@ -1,4 +1,7 @@
-﻿namespace PXLSchoolManagement.Models
+﻿using System;
+using System.Collections.Generic;
+
+namespace PXLSchoolManagement.Models
 {
     public class Academiejaar
     {
