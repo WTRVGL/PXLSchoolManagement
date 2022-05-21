@@ -7,17 +7,25 @@ namespace PXLSchoolManagement.Data
 {
     public class DataContext : IdentityDbContext<Gebruiker, IdentityRole, string>
     {
+        public DataContext()
+        {
+
+        }
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Student>()
+                .HasMany(s => s.Handboeken)
+                .WithMany(h => h.Studenten);
         }
 
         public DbSet<Academiejaar> Academiejaren { get; set; }
         public DbSet<Gebruiker> Gebruikers { get; set; }
-        public DbSet<Handboek> Handboeken { get; set; }
+        public DbSet<Handboek> Handboeken { get; set; } 
         public DbSet<Inschrijving> Inschrijvingen { get; set; }
         public DbSet<Lector> Lectoren { get; set; }
         public DbSet<Student> Studenten { get; set; }

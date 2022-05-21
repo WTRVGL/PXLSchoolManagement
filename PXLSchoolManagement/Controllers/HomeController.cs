@@ -5,6 +5,9 @@ using PXLSchoolManagement.Models;
 using PXLSchoolManagement.ViewModels;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http;
+using System.Linq;
 
 namespace PXLSchoolManagement.Controllers
 {
@@ -23,6 +26,7 @@ namespace PXLSchoolManagement.Controllers
             _userManager = userManager;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             var x = User.IsInRole("Admin");
