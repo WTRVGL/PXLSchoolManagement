@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace PXLSchoolManagement.Controllers
 {
@@ -27,18 +28,34 @@ namespace PXLSchoolManagement.Controllers
         }
 
         [Authorize]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var x = User.IsInRole("Admin");
-            var vm = new IndexViewModel
-            {
-                Handboeken = _context.Handboeken.ToList(),
-                Studenten = _context.Studenten.ToList(),
-                Vaklectoren = _context.Vaklectoren.ToList(),
-                Inschrijvingen = _context.Inschrijvingen.ToList()
-            };
+            var user = await _userManager.GetUserAsync(User);
 
-            return View(vm);
+            if (user == null)
+            {
+                return RedirectToPage("/Account/Login", new {area = "Identity"});
+            }
+
+            if (User.IsInRole("Admin"))
+            {
+                var vm = new IndexViewModel
+                {
+                    Handboeken = _context.Handboeken.ToList(),
+                    Studenten = _context.Studenten.ToList(),
+                    Vaklectoren = _context.Vaklectoren.ToList(),
+                    Inschrijvingen = _context.Inschrijvingen.ToList()
+                };
+
+                return View(vm);
+            }
+
+            return RedirectToAction("Privacy");            
+        }
+
+        public IActionResult Privacy()
+        {
+            return View();
         }
     }
 }
