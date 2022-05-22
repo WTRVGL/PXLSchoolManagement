@@ -50,7 +50,17 @@ namespace PXLSchoolManagement.Controllers
                 return View(vm);
             }
 
-            return RedirectToAction("Privacy");            
+            if (User.IsInRole("Student"))
+            {
+                return View("StudentDashboard");
+            }
+
+            if (User.IsInRole("Lector"))
+            {
+                return View("LectorDashboard");
+            }
+
+            return NotFound();            
         }
 
         public IActionResult Privacy()
