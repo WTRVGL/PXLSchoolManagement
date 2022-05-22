@@ -11,6 +11,8 @@ namespace PXLSchoolManagement.Models
         public string Voornaam { get; set; }
         public string VolledigeNaam => Voornaam + " " + Naam;
         public List<IdentityRole> Roles { get; set; }
+        public bool IsTemporarilyAccount { get; set; }
+        public IdentityRole RequestedRole { get; set; }
 
     }
 }
