@@ -17,6 +17,8 @@ using PXLSchoolManagement.Models;
 
 namespace PXLSchoolManagement.Areas.Identity.Pages.Account
 {
+
+    [AllowAnonymous]
     public class LoginModel : PageModel
     {
         private readonly SignInManager<Gebruiker> _signInManager;
