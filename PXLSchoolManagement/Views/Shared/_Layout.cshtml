@@ -158,23 +158,28 @@
           </li>
           <!--Gebruikers list-->
           @{
-              if(User.IsInRole("Student")){
+              if(User.IsInRole("Student"))
+              {
+                  // Nothing renders
               }
               else{
-
-              
-              
               if(User.IsInRole("Lector")){
                   <li class="nav-item">
-                <a class="nav-link" asp-area="" asp-controller="Studenten" asp-action="Index">
-                    <i class="fas fa-user-tie nav-icon"></i>
-                    <p>Mijn studenten</p>
-                  </a>
-              </li>
+                        <a class="nav-link" asp-area="" asp-controller="Studenten" asp-action="Index">
+                        <i class="fas fa-user-tie nav-icon"></i>
+                        <p>Mijn studenten</p>
+                        </a>
+                  </li>
               }
 
               else{
-                  <li class="nav-item menu-closed">
+                  <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Gebruikers" asp-action="Verification">
+                        <i class="fas fa-user-tie nav-icon"></i>
+                        <p>Account Aanvragen</p>
+                        </a>
+                  </li>
+            <li class="nav-item menu-closed">
             <a href="#" class="nav-link active">
               <i class="fas fa-users mr-2"></i>
               <p>
