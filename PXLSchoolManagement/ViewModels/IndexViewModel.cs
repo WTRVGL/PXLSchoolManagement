@@ -9,5 +9,6 @@ namespace PXLSchoolManagement.ViewModels
         public List<Handboek> Handboeken { get; set; }
         public List<Vaklector> Vaklectoren { get; set; }
         public List<Inschrijving> Inschrijvingen { get; set; }
+        public int TemporarilyAccountCount { get; set; }
     }
 }

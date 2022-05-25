@@ -36,7 +36,11 @@ namespace PXLSchoolManagement.Controllers
                     Handboeken = _context.Handboeken.ToList(),
                     Studenten = _context.Studenten.ToList(),
                     Vaklectoren = _context.Vaklectoren.ToList(),
-                    Inschrijvingen = _context.Inschrijvingen.ToList()
+                    Inschrijvingen = _context.Inschrijvingen.ToList(),
+                    TemporarilyAccountCount = 
+                        _context.Gebruikers
+                            .Where(gebruiker => gebruiker.IsTemporarilyAccount == true)
+                            .Count()
                 };
 
                 return View(vm);
