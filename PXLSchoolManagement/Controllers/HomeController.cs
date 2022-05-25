@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace PXLSchoolManagement.Controllers
 {
@@ -26,9 +27,15 @@ namespace PXLSchoolManagement.Controllers
             _userManager = userManager;
         }
 
-        [Authorize]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var user = await _userManager.GetUserAsync(User);
+
+            if (user == null)
+            {
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
+            }
+
             var x = User.IsInRole("Admin");
             var vm = new IndexViewModel
             {

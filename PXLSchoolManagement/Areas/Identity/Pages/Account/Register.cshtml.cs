@@ -15,16 +15,19 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using PXLSchoolManagement.Models;
 
 namespace PXLSchoolManagement.Areas.Identity.Pages.Account
 {
+    [AllowAnonymous]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<Gebruiker> _signInManager;
         private readonly UserManager<Gebruiker> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IUserStore<Gebruiker> _userStore;
         private readonly IUserEmailStore<Gebruiker> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
@@ -33,13 +36,15 @@ namespace PXLSchoolManagement.Areas.Identity.Pages.Account
             UserManager<Gebruiker> userManager,
             IUserStore<Gebruiker> userStore,
             SignInManager<Gebruiker> signInManager,
-            ILogger<RegisterModel> logger)
+            ILogger<RegisterModel> logger, 
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _userStore = userStore;
             _emailStore = GetEmailStore();
             _signInManager = signInManager;
             _logger = logger;
+            _roleManager = roleManager;
         }
 
         /// <summary>
@@ -48,6 +53,8 @@ namespace PXLSchoolManagement.Areas.Identity.Pages.Account
         /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
+
+        public IEnumerable<SelectListItem> Roles { get; set; }
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -92,7 +99,7 @@ namespace PXLSchoolManagement.Areas.Identity.Pages.Account
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
-            public string Password { get; set; }
+            public string Password { get; set; } 
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -102,23 +109,36 @@ namespace PXLSchoolManagement.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-        }
 
+            [Required]
+            public string SelectedRoleId { get; set; }
+        }
 
         public async Task OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+            // Populate Roles SelectList
+            Roles = _roleManager.Roles.Select(
+                    role => new SelectListItem
+                    {
+                        Text = role.Name,
+                        Value = role.Id
+                    });
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+            var x = ModelState;
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
-
+                user.IsTemporarilyAccount = true;
+                user.RequestedRole = await _roleManager.FindByIdAsync(Input.SelectedRoleId);
+                
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 user.Voornaam = Input.Voornaam;
@@ -155,6 +175,12 @@ namespace PXLSchoolManagement.Areas.Identity.Pages.Account
             }
 
             // If we got this far, something failed, redisplay form
+            Roles = _roleManager.Roles.Select(
+                    role => new SelectListItem
+                    {
+                        Text = role.Name,
+                        Value = role.Id
+                    });
             return Page();
         }
 
