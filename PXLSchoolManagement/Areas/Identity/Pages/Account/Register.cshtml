@@ -7,7 +7,7 @@
 
     <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2>Create a new account.</h2>
+            <h2>Registreer een nieuw account</h2>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-floating">
@@ -39,10 +39,10 @@
                 @Html.DropDownListFor(model => 
                 model.Input.SelectedRoleId, 
                 Model.Roles,
-                "-- Selecteer gewenste rol --",
+                "Selecteer gewenste rol",
                 new {@class = "form-control"})
             </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Registreer</button>
             <div>
                 <p>
                     <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">Log hier in</a>
