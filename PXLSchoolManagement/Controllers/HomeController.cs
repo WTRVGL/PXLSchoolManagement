@@ -27,25 +27,44 @@ namespace PXLSchoolManagement.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> Index()
+        [Authorize]
+        public IActionResult Index()
         {
-            var user = await _userManager.GetUserAsync(User);
-
-            if (user == null)
-            {
-                return RedirectToPage("/Account/Login", new { area = "Identity" });
-            }
-
             var x = User.IsInRole("Admin");
             var vm = new IndexViewModel
             {
-                Handboeken = _context.Handboeken.ToList(),
-                Studenten = _context.Studenten.ToList(),
-                Vaklectoren = _context.Vaklectoren.ToList(),
-                Inschrijvingen = _context.Inschrijvingen.ToList()
-            };
+                return RedirectToPage("/Account/Login", new {area = "Identity"});
+            }
 
-            return View(vm);
+            if (User.IsInRole("Admin"))
+            {
+                var vm = new IndexViewModel
+                {
+                    Handboeken = _context.Handboeken.ToList(),
+                    Studenten = _context.Studenten.ToList(),
+                    Vaklectoren = _context.Vaklectoren.ToList(),
+                    Inschrijvingen = _context.Inschrijvingen.ToList()
+                };
+
+                return View(vm);
+            }
+
+            if (User.IsInRole("Student"))
+            {
+                return View("StudentDashboard");
+            }
+
+            if (User.IsInRole("Lector"))
+            {
+                return View("LectorDashboard");
+            }
+
+            return NotFound();            
+        }
+
+        public IActionResult Privacy()
+        {
+            return View();
         }
     }
 }
