@@ -160,5 +160,15 @@ namespace PXLSchoolManagement.Controllers
         {
             return _context.Gebruikers.Any(e => e.Id == id);
         }
+
+        public async Task<IActionResult> Verification()
+        {
+            var verifiableAccounts =
+                _context.Gebruikers
+                    .Where(gebruiker => gebruiker.IsTemporarilyAccount == true)
+                        .Include(gebruiker => gebruiker.RequestedRole)
+                    .ToList();
+            return View(verifiableAccounts);
+        }
     }
 }
