@@ -119,7 +119,7 @@ namespace PXLSchoolManagement.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
-            // Populate Roles
+            // Populate Roles SelectList
             Roles = _roleManager.Roles.Select(
                     role => new SelectListItem
                     {

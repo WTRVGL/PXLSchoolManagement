@@ -39,9 +39,15 @@
                 @Html.DropDownListFor(model => 
                 model.Input.SelectedRoleId, 
                 Model.Roles,
-                "-- Selecteer gewenste rol --");
+                "-- Selecteer gewenste rol --",
+                new {@class = "form-control"})
             </div>
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            <div>
+                <p>
+                    <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">Log hier in</a>
+                </p>
+            </div>
             
         </form>
     </div>
