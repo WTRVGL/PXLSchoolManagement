@@ -27,15 +27,8 @@ namespace PXLSchoolManagement.Controllers
             _userManager = userManager;
         }
 
-        [Authorize]
         public IActionResult Index()
         {
-            var x = User.IsInRole("Admin");
-            var vm = new IndexViewModel
-            {
-                return RedirectToPage("/Account/Login", new {area = "Identity"});
-            }
-
             if (User.IsInRole("Admin"))
             {
                 var vm = new IndexViewModel
