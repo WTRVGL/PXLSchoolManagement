@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace PXLSchoolManagement.Controllers
+namespace PXLSchoolManagement.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class HandboekenController : Controller

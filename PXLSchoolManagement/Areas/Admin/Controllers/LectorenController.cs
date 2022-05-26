@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using PXLSchoolManagement.Data;
 using PXLSchoolManagement.Models;
 
-namespace PXLSchoolManagement.Controllers
+namespace PXLSchoolManagement.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class LectorenController : Controller

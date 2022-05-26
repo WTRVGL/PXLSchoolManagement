@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using PXLSchoolManagement.Areas.Admin.Models;
 using PXLSchoolManagement.Data;
 using PXLSchoolManagement.Models;
-using PXLSchoolManagement.ViewModels;
 
-namespace PXLSchoolManagement.Controllers
+namespace PXLSchoolManagement.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class StudentenController : Controller

@@ -10,7 +10,7 @@ using PXLSchoolManagement.Data;
 using PXLSchoolManagement.Models;
 using PXLSchoolManagement.Models.ViewModels;
 
-namespace PXLSchoolManagement.Controllers
+namespace PXLSchoolManagement.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class VaklectorsController : Controller

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 
-namespace PXLSchoolManagement.ViewModels
+namespace PXLSchoolManagement.Areas.Admin.Models
 {
     public class StudentViewModel
     {

@@ -1,7 +1,7 @@
 ﻿using PXLSchoolManagement.Models;
 using System.Collections.Generic;
 
-namespace PXLSchoolManagement.ViewModels
+namespace PXLSchoolManagement.Areas.Admin.Models
 {
     public class IndexViewModel
     {

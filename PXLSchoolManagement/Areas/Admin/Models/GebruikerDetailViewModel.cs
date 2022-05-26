@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace PXLSchoolManagement.ViewModels
+namespace PXLSchoolManagement.Areas.Admin.Models
 {
     public class GebruikerDetailViewModel
     {

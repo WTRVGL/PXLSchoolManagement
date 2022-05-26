@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PXLSchoolManagement.Areas.Admin.Models;
 using PXLSchoolManagement.Data;
 using PXLSchoolManagement.Models;
-using PXLSchoolManagement.ViewModels;
 
-namespace PXLSchoolManagement.Controllers
+namespace PXLSchoolManagement.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class GebruikersController : Controller

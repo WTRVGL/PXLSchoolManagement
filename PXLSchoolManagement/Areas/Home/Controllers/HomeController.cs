@@ -2,13 +2,10 @@
 using Microsoft.AspNetCore.Identity;
 using PXLSchoolManagement.Data;
 using PXLSchoolManagement.Models;
-using PXLSchoolManagement.ViewModels;
-using System.Diagnostics;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using System.Linq;
-using System.Threading.Tasks;
+using PXLSchoolManagement.Areas.Admin.Models;
 
 namespace PXLSchoolManagement.Controllers
 {
