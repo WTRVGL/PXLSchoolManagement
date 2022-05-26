@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿<!--Blank layout used for Login and Registration pages.-->
+
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -9,15 +11,15 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/adminlte.min.css">
-  </head>
+</head>
 <body>
     <div class="content">
-      <div class="container-fluid">
-        <div class="row">
-          @RenderBody()
+        <div class="container-fluid">
+            <div class="row">
+                @RenderBody()
+            </div>
         </div>
     </div>
-  </div>
     @await RenderSectionAsync("Scripts", required: false)
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
 </body>

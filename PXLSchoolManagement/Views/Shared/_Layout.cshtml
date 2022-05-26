@@ -1,8 +1,11 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using PXLSchoolManagement.Data
 @inject UserManager<Gebruiker> userManager;
+@inject DataContext _context;
 
 @{
     var user = await userManager.FindByNameAsync(User.Identity.Name);
+    var temporarilyAccountCount = _context.Gebruikers.Where(g => g.IsTemporarilyAccount == true).Count();
 }
 
 <!DOCTYPE html>
@@ -135,12 +138,10 @@
 
                 @if (user.IsTemporarilyAccount)
                 {
-
+                    //Don't render anything if the account isn't verified
                 }
                 else
                 {
-
-
                     <!-- Sidebar Menu -->
                     <nav class="mt-2">
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -181,8 +182,17 @@
                                         <li class="nav-item">
                                             <a class="nav-link" asp-area="" asp-controller="Gebruikers" asp-action="Verification">
                                                 <i class="fas fa-user-tie nav-icon"></i>
-                                                <p>Account Aanvragen</p>
+                                                <p>Nieuwe accounts</p>
+                                                @if (temporarilyAccountCount == 0)
+                                                {
+                                                    <span class="badge badge-light ml-2">@temporarilyAccountCount</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge badge-warning ml-2">@temporarilyAccountCount</span>
+                                                }
                                             </a>
+
                                         </li>
                                         <li class="nav-item menu-closed">
                                             <a href="#" class="nav-link active">
@@ -217,8 +227,6 @@
                                     }
                                 }
                             }
-
-
                         </ul>
                     </nav>
                 }
