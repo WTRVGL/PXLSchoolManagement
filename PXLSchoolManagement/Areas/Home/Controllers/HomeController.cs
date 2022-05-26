@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace PXLSchoolManagement.Controllers
 {
+    [Area("Home")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -43,7 +44,7 @@ namespace PXLSchoolManagement.Controllers
                             .Count()
                 };
 
-                return View(vm);
+                return View("AdminDashboard", vm);
             }
 
             if (User.IsInRole("Student"))

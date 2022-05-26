@@ -2,6 +2,7 @@
 
 namespace PXLSchoolManagement.Controllers
 {
+    [Area("Admin")]
     public class HandboekenController : Controller
     {
         public IActionResult Index()

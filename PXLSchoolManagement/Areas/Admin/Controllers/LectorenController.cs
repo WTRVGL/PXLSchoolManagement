@@ -11,6 +11,7 @@ using PXLSchoolManagement.Models;
 
 namespace PXLSchoolManagement.Controllers
 {
+    [Area("Admin")]
     public class LectorenController : Controller
     {
         private readonly DataContext _context;

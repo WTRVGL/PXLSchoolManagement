@@ -12,6 +12,7 @@ using PXLSchoolManagement.Models.ViewModels;
 
 namespace PXLSchoolManagement.Controllers
 {
+    [Area("Admin")]
     public class VaklectorsController : Controller
     {
         private readonly DataContext _context;

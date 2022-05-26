@@ -11,6 +11,7 @@ using PXLSchoolManagement.ViewModels;
 
 namespace PXLSchoolManagement.Controllers
 {
+    [Area("Admin")]
     public class GebruikersController : Controller
     {
         private readonly DataContext _context;

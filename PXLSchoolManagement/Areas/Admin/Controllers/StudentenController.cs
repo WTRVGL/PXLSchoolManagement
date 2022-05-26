@@ -12,6 +12,7 @@ using PXLSchoolManagement.ViewModels;
 
 namespace PXLSchoolManagement.Controllers
 {
+    [Area("Admin")]
     public class StudentenController : Controller
     {
         private readonly DataContext _context;

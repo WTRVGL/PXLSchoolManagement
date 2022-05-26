@@ -31,7 +31,7 @@ namespace PXLSchoolManagement
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("RequiresVerification",
-                    policyBuilder => policyBuilder.RequireRole(new string[] {"Admin", "Lector", "Student"}));
+                    policyBuilder => policyBuilder.RequireRole(new string[] { "Admin", "Lector", "Student" }));
             });
             services.AddControllersWithViews();
 
@@ -73,6 +73,14 @@ namespace PXLSchoolManagement
             {
                 endpoints.MapRazorPages().RequireAuthorization();
                 endpoints.MapDefaultControllerRoute();
+                endpoints.MapAreaControllerRoute(
+                    "Home",
+                    "Home",
+                    "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapAreaControllerRoute(
+                    "Admin",
+                    "Admin",
+                    "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
