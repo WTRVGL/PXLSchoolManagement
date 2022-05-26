@@ -1,0 +1,63 @@
+﻿@inject DataContext _context
+
+@{
+    var temporarilyAccountCount = _context.Gebruikers.Where(g => g.IsTemporarilyAccount == true).Count();
+}
+
+<li class="nav-item">
+    <a class="nav-link" asp-area="" asp-controller="Gebruikers" asp-action="Verification">
+        <i class="fas fa-user-tie nav-icon"></i>
+        <p>Nieuwe accounts</p>
+        @if (temporarilyAccountCount == 0)
+        {
+            <span class="badge badge-light ml-2">@temporarilyAccountCount</span>
+        }
+        else
+        {
+            <span class="badge badge-warning ml-2">@temporarilyAccountCount</span>
+        }
+    </a>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link" asp-area="" asp-controller="Inschrijvingen" asp-action="Index">
+        <i class="fas fa-chalkboard nav-icon"></i>
+        <p>Inschrijvingen</p>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" asp-area="" asp-controller="Handboeken" asp-action="Index">
+        <i class="fas fa-book nav-icon"></i>
+        <p>Handboeken</p>
+    </a>
+</li>
+<li class="nav-item menu-closed">
+    <a href="#" class="nav-link active">
+        <i class="fas fa-users mr-2"></i>
+        <p>
+            Alle Gebruikers
+            <i class="right fas fa-angle-left"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a class="nav-link" asp-area="" asp-controller="Gebruikers" asp-action="Index">
+                <i class="fas fa-user-tie nav-icon"></i>
+                <p>Gebruikers</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-area="" asp-controller="Vaklectors" asp-action="Index">
+                <i class="fas fa-user-tie nav-icon"></i>
+                <p>Vaklectoren</p>
+            </a>
+
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-area="" asp-controller="Studenten" asp-action="Index">
+                <i class="fas fa-user-tie nav-icon"></i>
+                <p>Studenten</p>
+            </a>
+        </li>
+    </ul>
+</li>

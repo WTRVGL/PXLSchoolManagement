@@ -145,87 +145,19 @@
                     <!-- Sidebar Menu -->
                     <nav class="mt-2">
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                            <!-- Add icons to the links using the .nav-icon class
-                                 with font-awesome or any other icon font library -->
-                        <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Inschrijvingen" asp-action="Index">
-                                    <i class="fas fa-chalkboard nav-icon"></i>
-                                    <p>Inschrijvingen</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Handboeken" asp-action="Index">
-                                    <i class="fas fa-book nav-icon"></i>
-                                    <p>Handboeken</p>
-                                </a>
-                            </li>
-                            <!--Gebruikers list-->
-                            @{
-                                if (User.IsInRole("Student"))
-                                {
-                                    // Nothing renders
-                                }
-                                else
-                                {
-                                    if (User.IsInRole("Lector"))
-                                    {
-                                        <li class="nav-item">
-                                            <a class="nav-link" asp-area="" asp-controller="Studenten" asp-action="Index">
-                                                <i class="fas fa-user-tie nav-icon"></i>
-                                                <p>Mijn studenten</p>
-                                            </a>
-                                        </li>
-                                    }
+                            @if (User.IsInRole("Student"))
+                            {
+                                <partial name="NavigationList/_StudentNav" />
+                            }
 
-                                    else
-                                    {
-                                        <li class="nav-item">
-                                            <a class="nav-link" asp-area="" asp-controller="Gebruikers" asp-action="Verification">
-                                                <i class="fas fa-user-tie nav-icon"></i>
-                                                <p>Nieuwe accounts</p>
-                                                @if (temporarilyAccountCount == 0)
-                                                {
-                                                    <span class="badge badge-light ml-2">@temporarilyAccountCount</span>
-                                                }
-                                                else
-                                                {
-                                                    <span class="badge badge-warning ml-2">@temporarilyAccountCount</span>
-                                                }
-                                            </a>
+                            @if (User.IsInRole("Lector"))
+                            {
+                                <partial name="NavigationList/_LectorNav" />
+                            }
 
-                                        </li>
-                                        <li class="nav-item menu-closed">
-                                            <a href="#" class="nav-link active">
-                                                <i class="fas fa-users mr-2"></i>
-                                                <p>
-                                                    Alle Gebruikers
-                                                    <i class="right fas fa-angle-left"></i>
-                                                </p>
-                                            </a>
-                                            <ul class="nav nav-treeview">
-                                                <li class="nav-item">
-                                                    <a class="nav-link" asp-area="" asp-controller="Gebruikers" asp-action="Index">
-                                                        <i class="fas fa-user-tie nav-icon"></i>
-                                                        <p>Gebruikers</p>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" asp-area="" asp-controller="Vaklectors" asp-action="Index">
-                                                        <i class="fas fa-user-tie nav-icon"></i>
-                                                        <p>Vaklectoren</p>
-                                                    </a>
-
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" asp-area="" asp-controller="Studenten" asp-action="Index">
-                                                        <i class="fas fa-user-tie nav-icon"></i>
-                                                        <p>Studenten</p>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    }
-                                }
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <partial name="NavigationList/_AdminNav" />
                             }
                         </ul>
                     </nav>
