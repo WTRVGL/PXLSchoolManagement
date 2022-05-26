@@ -81,6 +81,10 @@ namespace PXLSchoolManagement
                     "Admin",
                     "Admin",
                     "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapAreaControllerRoute(
+                    "Student",
+                    "Student",
+                    "Student/{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

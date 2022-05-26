@@ -49,7 +49,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Shared\" />
+    <Folder Include="Areas\Student\Views\" />
     <Folder Include="Data\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\lib\jquery\dist\" />

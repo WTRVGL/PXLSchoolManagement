@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using System.Linq;
 using PXLSchoolManagement.Areas.Admin.Models;
+using PXLSchoolManagement.Models;
 
 namespace PXLSchoolManagement.Controllers
 {
