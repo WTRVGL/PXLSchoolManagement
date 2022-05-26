@@ -1,24 +1,27 @@
 ﻿#nullable disable
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PXLSchoolManagement.Data;
 using PXLSchoolManagement.Models;
+using PXLSchoolManagement.ViewModels;
 
 namespace PXLSchoolManagement.Controllers
 {
     public class GebruikersController : Controller
     {
         private readonly DataContext _context;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<Gebruiker> _userManager;
 
-        public GebruikersController(DataContext context)
+        public GebruikersController(DataContext context, RoleManager<IdentityRole> roleManager, UserManager<Gebruiker> userManager)
         {
             _context = context;
+            _roleManager = roleManager;
+            _userManager = userManager;
         }
 
         // GET: Gebruikers
@@ -37,14 +40,36 @@ namespace PXLSchoolManagement.Controllers
                 return NotFound();
             }
 
+            // Gets selected user and includes Roles & RequestedRole
             var gebruiker = await _context.Gebruikers
+                .Include(gebruiker => gebruiker.Roles)
+                .Include(gebruiker => gebruiker.RequestedRole)
                 .FirstOrDefaultAsync(m => m.Id == id.ToString());
+
             if (gebruiker == null)
             {
                 return NotFound();
             }
 
-            return View(gebruiker);
+            // Build basic View Model
+            var vm = new GebruikerDetailViewModel
+            {
+                GebruikerId = id,
+                Email = gebruiker.Email,
+                Naam = gebruiker.Naam,
+                Voornaam = gebruiker.Voornaam,
+                Role = gebruiker.Roles.FirstOrDefault()
+            };
+
+            // If unverified account, include more properties
+            if (gebruiker.IsTemporarilyAccount)
+            {
+                vm.RequestedRole = gebruiker.RequestedRole;
+                vm.RequestedRoleId = gebruiker.RequestedRole.Id;
+                vm.IsTemporarilyAccount = gebruiker.IsTemporarilyAccount;
+            }
+
+            return View(vm);
         }
 
         // GET: Gebruikers/Create
@@ -148,7 +173,7 @@ namespace PXLSchoolManagement.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var gebruiker = await _context.Gebruikers.FindAsync(id);
             _context.Gebruikers.Remove(gebruiker);
@@ -161,6 +186,7 @@ namespace PXLSchoolManagement.Controllers
             return _context.Gebruikers.Any(e => e.Id == id);
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Verification()
         {
             var verifiableAccounts =
@@ -169,6 +195,23 @@ namespace PXLSchoolManagement.Controllers
                         .Include(gebruiker => gebruiker.RequestedRole)
                     .ToList();
             return View(verifiableAccounts);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AcceptRole(GebruikerDetailViewModel vm)
+        {
+            var requestedRole = _context.Roles.FirstOrDefault(role => role.Id == vm.RequestedRoleId);
+            var user = _context.Users.FirstOrDefault(gebruiker => gebruiker.Id == vm.GebruikerId);
+            user.IsTemporarilyAccount = false;
+            user.RequestedRole = null;
+
+            await _userManager.AddToRoleAsync(user, requestedRole.Name);
+
+            _context.Update(user);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
         }
     }
 }

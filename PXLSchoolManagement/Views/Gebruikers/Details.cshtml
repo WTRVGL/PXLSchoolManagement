@@ -1,4 +1,4 @@
-﻿@model PXLSchoolManagement.Models.Gebruiker
+﻿@model PXLSchoolManagement.ViewModels.GebruikerDetailViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -28,9 +28,28 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Email)
         </dd>
+
+        @if (Model.IsTemporarilyAccount)
+        {
+            <dt class = "col-sm-2">
+                <p>Aangevraagde rol</p>
+            </dt>
+            <dd class = "col-sm-2">
+                @Html.DisplayFor(model => model.RequestedRole.Name)
+            </dd>
+            <dd class = "col-sm-2">
+                
+                <form asp-action="AcceptRole">
+                    @Html.HiddenFor(model => model.RequestedRoleId)
+                    @Html.HiddenFor(model => model.GebruikerId)
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                </form>
+            </dd>
+        }
+
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model?.GebruikerId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
