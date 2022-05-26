@@ -4,19 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace PXLSchoolManagement.Areas.Student.Controllers
 {
     [Area("Student")]
-    public class CursussenController : Controller
+    public class HandboekenController : Controller
     {
         [Authorize(Roles ="Admin,Student")]
         public IActionResult Index()
         {
             return View();
         }
-
-        [Authorize(Roles = "Admin,Student")]
-        public IActionResult Cursussen()
-        {
-            return View();
-        }
-
     }
 }

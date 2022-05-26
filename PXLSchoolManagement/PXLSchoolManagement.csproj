@@ -49,6 +49,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Lector\Views\" />
+    <Folder Include="Areas\Lector\Controllers\" />
     <Folder Include="Data\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\lib\jquery\dist\" />
