@@ -1,4 +1,4 @@
-﻿@model PXLSchoolManagement.ViewModels.StudentViewModel
+﻿@model StudentViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -11,11 +11,11 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
-            @Html.DropDownListFor(model => 
-                model.GebruikerId, 
-                Model.Studenten, 
-                "-- Select --")
-            <input type="submit" />    
+            @Html.DropDownListFor(model =>
+            model.GebruikerId,
+            Model.Studenten,
+            "-- Select --")
+            <input type="submit" />
         </form>
     </div>
 </div>
@@ -25,5 +25,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
 }

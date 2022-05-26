@@ -65,11 +65,12 @@ namespace PXLSchoolManagement.Controllers
 
             var vm = new VaklectorViewModel();
 
-            vm.Lectoren = 
+            vm.Lectoren =
                 lectoren.Select(
-                    l => new SelectListItem { 
-                        Text = l.Gebruiker.VolledigeNaam, 
-                        Value = l.LectorId.ToString() 
+                    l => new SelectListItem
+                    {
+                        Text = l.Gebruiker.VolledigeNaam,
+                        Value = l.LectorId.ToString()
                     });
 
             return View(vm);
@@ -86,7 +87,7 @@ namespace PXLSchoolManagement.Controllers
                 .Include(l => l.Gebruiker)
                 .Include(l => l.Vaklector)
                 .FirstOrDefault(l => vm.LectorId == l.LectorId);
-            
+
             if (lector == null)
             {
                 return RedirectToAction("Create", "Vaklectors");
@@ -94,7 +95,7 @@ namespace PXLSchoolManagement.Controllers
             }
             if (lector.Vaklector == null)
             {
-                _context.Add(new Vaklector {  LectorId = vm.LectorId});
+                _context.Add(new Vaklector { LectorId = vm.LectorId });
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

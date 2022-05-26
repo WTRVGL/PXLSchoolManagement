@@ -37,7 +37,7 @@ namespace PXLSchoolManagement.Controllers
                     Studenten = _context.Studenten.ToList(),
                     Vaklectoren = _context.Vaklectoren.ToList(),
                     Inschrijvingen = _context.Inschrijvingen.ToList(),
-                    TemporarilyAccountCount = 
+                    TemporarilyAccountCount =
                         _context.Gebruikers
                             .Where(gebruiker => gebruiker.IsTemporarilyAccount == true)
                             .Count()
@@ -56,7 +56,7 @@ namespace PXLSchoolManagement.Controllers
                 return View("LectorDashboard");
             }
 
-            return NotFound();            
+            return NotFound();
         }
 
         public IActionResult Privacy()

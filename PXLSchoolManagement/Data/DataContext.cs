@@ -25,7 +25,7 @@ namespace PXLSchoolManagement.Data
 
         public DbSet<Academiejaar> Academiejaren { get; set; }
         public DbSet<Gebruiker> Gebruikers { get; set; }
-        public DbSet<Handboek> Handboeken { get; set; } 
+        public DbSet<Handboek> Handboeken { get; set; }
         public DbSet<Inschrijving> Inschrijvingen { get; set; }
         public DbSet<Lector> Lectoren { get; set; }
         public DbSet<Student> Studenten { get; set; }
