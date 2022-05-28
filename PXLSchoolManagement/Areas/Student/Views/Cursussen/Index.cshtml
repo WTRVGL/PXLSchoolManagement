@@ -1,7 +1,26 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity
+@model PXLSchoolManagement.Areas.Student.Models.StudentCursussenIndexViewModel
+@inject UserManager<Gebruiker> _userManager
 @{
+    var user = await _userManager.GetUserAsync(User);
     ViewData["Title"] = "Cursussen";
 }
 
 <h1>Cursussen</h1>
 
+<div class="row row-cols-1 row-cols-md-3">
+    @foreach (var cursus in Model.Cursussen)
+    {
+        <div class="col mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@cursus.Vak.VakNaam</h5>
+                    <p class="card-text mb-0 text-muted">Academiejaar: @cursus.Academiejaar.JarenGeformatteerd</p>
+                    <p class="card-text mb-2 text-muted">Vaklector: @cursus.Vaklectors.FirstOrDefault().Lector.Gebruiker.VolledigeNaam</p>
+                    <p class="card-text mb-2">Aantal studenten momenteel ingeschreven: @cursus.Studenten.Count()</p>
+                    <a href="#" class="card-link">Open cursus</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
