@@ -213,16 +213,16 @@ namespace PXLSchoolManagement.Data
                 new Handboek {
                     Kostprijs = 25,
                     Studenten = new List<Student>(),
-                    Titel = "C# Web voor Dummies",
-                    VakId = 1,
+                    Titel = "Pro ASP.NET Core 6",
+                    Vak = vakken.FirstOrDefault(vak => vak.VakNaam == "C# Web"),
                     Afbeelding = "",
-                    UitgifteDatum = new DateTime(2012, 1, 5)
+                    UitgifteDatum = new DateTime(2021, 1, 5)
                 },
                 new Handboek {
                     Kostprijs = 30,
                     Studenten = new List<Student>(),
                     Titel = "JavaScript voor gevorderden",
-                    VakId = 2,
+                    Vak = vakken.FirstOrDefault(vak => vak.VakNaam == "Web Advanced"),
                     Afbeelding = "",
                     UitgifteDatum = new DateTime(2016,2, 5)
                 }
@@ -231,6 +231,9 @@ namespace PXLSchoolManagement.Data
             context.Handboeken.AddRange(handboeken);
             context.SaveChanges();
 
+            vakken.FirstOrDefault(vak => vak.VakNaam == "C# Web").Handboeken.Add(handboeken[0]);
+            context.Vakken.UpdateRange(vakken);
+            context.SaveChanges();
 
         }
     }
