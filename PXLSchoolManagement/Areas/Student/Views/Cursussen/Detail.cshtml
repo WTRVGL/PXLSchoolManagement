@@ -1,0 +1,59 @@
+﻿@model PXLSchoolManagement.Areas.Student.Models.StudentCursusDetailViewModel
+
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<h2>@Model.Cursus.Vak.VakNaam - @Model.Cursus.Academiejaar.JarenGeformatteerd</h2>
+<h4 class="mb-2">Vaklector: @Model.Cursus.Vaklectors.FirstOrDefault().Lector.Gebruiker.VolledigeNaam</h4>
+
+<div clas="col-4">
+    @if (Model.IsIngeschreven)
+    {
+        <span class="badge badge-success mb-4">Ingeschreven</span>
+    }
+    else
+    {
+        <span class="badge badge-warning mb-4">Niet ingeschreven</span>
+    }
+</div>
+
+
+@if (@Model.Cursus.Studenten.Count == 0)
+{
+    <h4>Geen studenten ingeschreven voor dit vak</h4>
+}
+else
+{
+
+    <h3>Ingeschreven studenten:</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Voornaam</th>
+                <th scope="col">Naam</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in Model.Cursus.Studenten.Select((value, i) => new { i, value }))
+            {
+                var listNumber = student.i + 1;
+                var value = student.value;
+
+                <tr>
+                    <th scope="row">@listNumber</th>
+                    <td>@student.value.Gebruiker.Voornaam</td>
+                    <td>@student.value.Gebruiker.Naam</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h3>Cursusmateriaal:</h3>
+    @foreach(var handboek in @Model.Cursus.Vak.Handboeken)
+    {
+        <h4>@handboek.Titel</h4>
+    }
+}
+
