@@ -1,76 +1,40 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UserSecretsId>59453195-9f45-44e2-aa87-07bd88949e2e</UserSecretsId>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UserSecretsId>59453195-9f45-44e2-aa87-07bd88949e2e</UserSecretsId>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Include="wwwroot\css\adminlte.css" />
-    <None Include="wwwroot\css\adminlte.css.map" />
-    <None Include="wwwroot\css\adminlte.min.css" />
-    <None Include="wwwroot\css\adminlte.min.css.map" />
-    <None Include="wwwroot\img\AdminLTELogo.png" />
-    <None Include="wwwroot\img\avatar.png" />
-    <None Include="wwwroot\img\avatar2.png" />
-    <None Include="wwwroot\img\avatar3.png" />
-    <None Include="wwwroot\img\avatar4.png" />
-    <None Include="wwwroot\img\avatar5.png" />
-    <None Include="wwwroot\img\boxed-bg.jpg" />
-    <None Include="wwwroot\img\boxed-bg.png" />
-    <None Include="wwwroot\img\credit\american-express.png" />
-    <None Include="wwwroot\img\credit\cirrus.png" />
-    <None Include="wwwroot\img\credit\mastercard.png" />
-    <None Include="wwwroot\img\credit\paypal.png" />
-    <None Include="wwwroot\img\credit\paypal2.png" />
-    <None Include="wwwroot\img\credit\visa.png" />
-    <None Include="wwwroot\img\default-150x150.png" />
-    <None Include="wwwroot\img\icons.png" />
-    <None Include="wwwroot\img\photo1.png" />
-    <None Include="wwwroot\img\photo2.png" />
-    <None Include="wwwroot\img\photo3.jpg" />
-    <None Include="wwwroot\img\photo4.jpg" />
-    <None Include="wwwroot\img\prod-1.jpg" />
-    <None Include="wwwroot\img\prod-2.jpg" />
-    <None Include="wwwroot\img\prod-3.jpg" />
-    <None Include="wwwroot\img\prod-4.jpg" />
-    <None Include="wwwroot\img\prod-5.jpg" />
-    <None Include="wwwroot\img\user1-128x128.jpg" />
-    <None Include="wwwroot\img\user2-160x160.jpg" />
-    <None Include="wwwroot\img\user3-128x128.jpg" />
-    <None Include="wwwroot\img\user4-128x128.jpg" />
-    <None Include="wwwroot\img\user5-128x128.jpg" />
-    <None Include="wwwroot\img\user6-128x128.jpg" />
-    <None Include="wwwroot\img\user7-128x128.jpg" />
-    <None Include="wwwroot\img\user8-128x128.jpg" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="wwwroot\css\adminlte.css" />
+		<None Include="wwwroot\css\adminlte.css.map" />
+		<None Include="wwwroot\css\adminlte.min.css" />
+		<None Include="wwwroot\css\adminlte.min.css.map" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Areas\Lector\Views\" />
-    <Folder Include="Areas\Lector\Controllers\" />
-    <Folder Include="Data\" />
-    <Folder Include="wwwroot\images\" />
-    <Folder Include="wwwroot\lib\jquery\dist\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Areas\Lector\Views\" />
+		<Folder Include="Areas\Lector\Controllers\" />
+		<Folder Include="Data\" />
+		<Folder Include="wwwroot\lib\jquery\dist\" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.25" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.25" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+	</ItemGroup>
 
 </Project>

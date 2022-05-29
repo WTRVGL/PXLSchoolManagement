@@ -1,9 +1,9 @@
 ﻿using PXLSchoolManagement.Models;
 using System.Collections.Generic;
 
-namespace PXLSchoolManagement.Areas.Admin.Models
+namespace PXLSchoolManagement.Areas.Home.Models
 {
-    public class IndexViewModel
+    public class AdminDashboardViewModel
     {
         public List<PXLSchoolManagement.Models.Student> Studenten { get; set; }
         public List<Handboek> Handboeken { get; set; }

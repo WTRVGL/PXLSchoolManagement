@@ -197,13 +197,16 @@ namespace PXLSchoolManagement.Data
                 new Vaklector { LectorId = 4, Inschrijvingen = new List <Inschrijving >() }
             };
 
-            vaklectoren[0].Inschrijvingen.Add(inschrijvingen[3]);
-            vaklectoren[1].Inschrijvingen.Add(inschrijvingen[0]);
-
-            vaklectoren[2].Inschrijvingen.Add(inschrijvingen[2]);
-            vaklectoren[2].Inschrijvingen.Add(inschrijvingen[4]);
-
-            vaklectoren[3].Inschrijvingen.Add(inschrijvingen[1]);
+                                                //Web Advanced
+            vaklectoren[3].Inschrijvingen.Add(inschrijvingen[3]);
+                                                //C# Web
+            vaklectoren[2].Inschrijvingen.Add(inschrijvingen[0]);
+                                                //C# Advanced
+            vaklectoren[1].Inschrijvingen.Add(inschrijvingen[2]);
+                                                //C# Essentials
+            vaklectoren[1].Inschrijvingen.Add(inschrijvingen[4]);
+                                                //Data Essentials
+            vaklectoren[0].Inschrijvingen.Add(inschrijvingen[1]);
 
             context.Vaklectoren.AddRange(vaklectoren);
             context.SaveChanges();
@@ -225,8 +228,43 @@ namespace PXLSchoolManagement.Data
                     Vak = vakken.FirstOrDefault(vak => vak.VakNaam == "Web Advanced"),
                     Afbeelding = "",
                     UitgifteDatum = new DateTime(2016,2, 5)
-                }
+                },
+                new Handboek {
+                    Kostprijs = 50,
+                    Studenten = new List<Student>(),
+                    Titel = "C# Programming Basics",
+                    Vak = vakken.FirstOrDefault(vak => vak.VakNaam == "C# Essentials"),
+                    Afbeelding = "",
+                    UitgifteDatum = new DateTime(2021, 1, 5)
+                },
+                new Handboek {
+                    Kostprijs = 40,
+                    Studenten = new List<Student>(),
+                    Titel = "C# 9.0 in a Nutshell",
+                    Vak = vakken.FirstOrDefault(vak => vak.VakNaam == "C# Advanced"),
+                    Afbeelding = "",
+                    UitgifteDatum = new DateTime(2021, 1, 5)
+                },
+                new Handboek {
+                    Kostprijs = 60,
+                    Studenten = new List<Student>(),
+                    Titel = "SQL Cookbook",
+                    Vak = vakken.FirstOrDefault(vak => vak.VakNaam == "Data Essentials"),
+                    Afbeelding = "",
+                    UitgifteDatum = new DateTime(2021, 1, 5)
+                },
             };
+
+            //Assign random students to Handboek
+
+            handboeken.ForEach(handboek =>
+            {
+                var rngHandboek = new Random().Next(handboeken.Count);
+                for (int i = 0; i < rngHandboek; i++)
+                {
+                    handboek.Studenten.Add(studenten[i]);
+                }
+            });
 
             context.Handboeken.AddRange(handboeken);
             context.SaveChanges();
