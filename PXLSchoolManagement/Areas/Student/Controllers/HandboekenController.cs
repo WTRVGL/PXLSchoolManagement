@@ -22,7 +22,6 @@ namespace PXLSchoolManagement.Areas.Student.Controllers
             _userManager = userManager;
         }
 
-        [Authorize(Roles = "Admin,Student")]
         public IActionResult Index()
         {
             var vm = new StudentHandboekenIndexViewModel();
@@ -39,7 +38,6 @@ namespace PXLSchoolManagement.Areas.Student.Controllers
             return View(vm);
         }
 
-        [Authorize(Roles = "Admin,Student")]
         public async Task<IActionResult> Detail(int? id)
         {
             var user = await _userManager.GetUserAsync(User);

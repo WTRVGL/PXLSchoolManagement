@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model PXLSchoolManagement.Areas.Lector.Models.LectorHandboekenIndexViewModel
+@inject UserManager<Gebruiker> _userManager
+@inject DataContext _context;
+
+@{
+    var user = await _userManager.GetUserAsync(User);
+    ViewData["Title"] = "Handboeken";
+}
+
+<h1>Mijn handboeken</h1>
+
+<div class="row row-cols-1 row-cols-md-3">
+    @foreach (var handboek in Model.Handboeken)
+    {
+        var vaklector = handboek.Vak.Inschrijvingen
+        .FirstOrDefault()
+        .Vaklectors.FirstOrDefault();
+
+        <div class="col mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@handboek.Titel</h5>
+                    <p class="card-text mb-0 text-muted">Vak: @handboek.Vak.VakNaam</p>
+                    <a asp-area="Student" asp-action="Detail" asp-route-id="@handboek.HandboekId">Open cursus</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -59,7 +59,7 @@ namespace PXLSchoolManagement.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("LectorId,GebruikerId")] Lector lector)
+        public async Task<IActionResult> Create([Bind("LectorId,GebruikerId")] PXLSchoolManagement.Models.Lector lector)
         {
             if (ModelState.IsValid)
             {
@@ -93,7 +93,7 @@ namespace PXLSchoolManagement.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("LectorId,GebruikerId")] Lector lector)
+        public async Task<IActionResult> Edit(int id, [Bind("LectorId,GebruikerId")] PXLSchoolManagement.Models.Lector lector)
         {
             if (id != lector.LectorId)
             {
