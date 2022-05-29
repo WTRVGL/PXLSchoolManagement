@@ -88,13 +88,10 @@ namespace PXLSchoolManagement.Areas.Admin.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("Id,Naam,Voornaam,Email")] Gebruiker gebruiker)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(gebruiker);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(gebruiker);
+            _context.Add(gebruiker);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
         }
 
         // GET: Gebruikers/Edit/5
@@ -128,27 +125,23 @@ namespace PXLSchoolManagement.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    _context.Update(gebruiker);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!GebruikerExists(gebruiker.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                _context.Update(gebruiker);
+                await _context.SaveChangesAsync();
             }
-            return View(gebruiker);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!GebruikerExists(gebruiker.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Gebruikers/Delete/5
