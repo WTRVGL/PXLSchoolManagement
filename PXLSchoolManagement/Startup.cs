@@ -28,17 +28,20 @@ namespace PXLSchoolManagement
                 {
                     options.Filters.Add(new AuthorizeFilter("RequiresVerification"));
                 });
+
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("RequiresVerification",
                     policyBuilder => policyBuilder.RequireRole(new string[] { "Admin", "Lector", "Student" }));
             });
+
             services.AddControllersWithViews();
 
             services.AddDbContext<DataContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultSqlServer"));
             });
+
             services.AddDefaultIdentity<Gebruiker>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<DataContext>();
@@ -56,6 +59,7 @@ namespace PXLSchoolManagement
             {
                 app.UseDeveloperExceptionPage();
             }
+
             else
             {
                 app.UseExceptionHandler("/Error");
@@ -72,7 +76,6 @@ namespace PXLSchoolManagement
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages().RequireAuthorization();
-                endpoints.MapDefaultControllerRoute();
                 endpoints.MapAreaControllerRoute(
                     "Home",
                     "Home",
@@ -80,7 +83,11 @@ namespace PXLSchoolManagement
                 endpoints.MapAreaControllerRoute(
                     "Admin",
                     "Admin",
-                    "{controller=Home}/{action=Index}/{id?}");
+                    "{area}/{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapAreaControllerRoute(
+                    name: "Student",
+                    areaName: "Student",
+                    pattern: "{area}/{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

@@ -3,12 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PXLSchoolManagement.Areas.Admin.Models;
 using PXLSchoolManagement.Data;
-using PXLSchoolManagement.Models;
 
 namespace PXLSchoolManagement.Areas.Admin.Controllers
 {
@@ -71,7 +71,7 @@ namespace PXLSchoolManagement.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StudentId,GebruikerId")] Student student)
+        public async Task<IActionResult> Create([Bind("StudentId,GebruikerId")] PXLSchoolManagement.Models.Student student)
         {
             if (ModelState.IsValid)
             {
@@ -105,7 +105,7 @@ namespace PXLSchoolManagement.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("StudentId,GebruikerId")] Student student)
+        public async Task<IActionResult> Edit(int id, [Bind("StudentId,GebruikerId")] PXLSchoolManagement.Models.Student student)
         {
             if (id != student.StudentId)
             {
@@ -137,6 +137,7 @@ namespace PXLSchoolManagement.Areas.Admin.Controllers
         }
 
         // GET: Studenten/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

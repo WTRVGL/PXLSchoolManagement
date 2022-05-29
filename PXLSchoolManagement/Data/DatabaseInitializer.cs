@@ -97,16 +97,16 @@ namespace PXLSchoolManagement.Data
 
             var academiejaren = new List<Academiejaar>
             {
-                new Academiejaar { Startdatum= DateTime.Parse("2013-09-14")},
-                new Academiejaar { Startdatum= DateTime.Parse("2014-09-14")},
-                new Academiejaar { Startdatum= DateTime.Parse("2015-09-14")},
-                new Academiejaar { Startdatum= DateTime.Parse("2016-09-14")},
-                new Academiejaar { Startdatum= DateTime.Parse("2017-09-14")},
-                new Academiejaar { Startdatum= DateTime.Parse("2018-09-14")},
-                new Academiejaar { Startdatum= DateTime.Parse("2019-09-14")},
-                new Academiejaar { Startdatum= DateTime.Parse("2020-09-14")},
-                new Academiejaar { Startdatum= DateTime.Parse("2021-09-14")},
-                new Academiejaar { Startdatum= DateTime.Parse("2022-09-14")},
+                new Academiejaar { Startdatum= DateTime.Parse("2013-09-14"), JarenGeformatteerd = "2013 - 2014"},
+                new Academiejaar { Startdatum= DateTime.Parse("2014-09-14"), JarenGeformatteerd = "2014 - 2015"},
+                new Academiejaar { Startdatum= DateTime.Parse("2015-09-14"), JarenGeformatteerd = "2015 - 2016"},
+                new Academiejaar { Startdatum= DateTime.Parse("2016-09-14"), JarenGeformatteerd = "2016 - 2017"},
+                new Academiejaar { Startdatum= DateTime.Parse("2017-09-14"), JarenGeformatteerd = "2017 - 2018"},
+                new Academiejaar { Startdatum= DateTime.Parse("2018-09-14"), JarenGeformatteerd = "2018 - 2019"},
+                new Academiejaar { Startdatum= DateTime.Parse("2019-09-14"), JarenGeformatteerd = "2019 - 2020"},
+                new Academiejaar { Startdatum= DateTime.Parse("2020-09-14"), JarenGeformatteerd = "2020 - 2021"},
+                new Academiejaar { Startdatum= DateTime.Parse("2021-09-14"), JarenGeformatteerd = "2021 - 2022"},
+                new Academiejaar { Startdatum= DateTime.Parse("2022-09-14"), JarenGeformatteerd = "2022 - 2023"},
 
             };
 
@@ -116,31 +116,31 @@ namespace PXLSchoolManagement.Data
             var inschrijvingen = new List<Inschrijving>
             {
                 new Inschrijving {
-                    AcademiejaarId = 9, 
-                    Vak = vakken.FirstOrDefault<Vak>(vak => vak.VakNaam == "C# Web"), 
+                    AcademiejaarId = 2,
+                    Vak = vakken.FirstOrDefault<Vak>(vak => vak.VakNaam == "C# Web"),
                     Studenten = new List<Student>(),
                     Vaklectors = new List<Vaklector>()
                 },
                 new Inschrijving {
-                    AcademiejaarId = 9,
+                    AcademiejaarId = 2,
                     Vak = vakken.FirstOrDefault<Vak>(vak => vak.VakNaam == "Data Essentials"),
                     Studenten = new List<Student>(),
                     Vaklectors = new List<Vaklector>()
                 },
                 new Inschrijving {
-                    AcademiejaarId = 9,
+                    AcademiejaarId = 2,
                     Vak = vakken.FirstOrDefault<Vak>(vak => vak.VakNaam == "C# Advanced"),
                     Studenten = new List<Student>(),
                     Vaklectors = new List<Vaklector>()
                 },
                 new Inschrijving {
-                    AcademiejaarId = 10,
+                    AcademiejaarId = 2,
                     Vak = vakken.FirstOrDefault<Vak>(vak => vak.VakNaam == "Web Advanced"),
                     Studenten = new List<Student>(),
                     Vaklectors = new List<Vaklector>()
                 },
                 new Inschrijving {
-                    AcademiejaarId = 9,
+                    AcademiejaarId = 2,
                     Vak = vakken.FirstOrDefault<Vak>(vak => vak.VakNaam == "C# Essentials"),
                     Studenten = new List<Student>(),
                     Vaklectors = new List<Vaklector>()
@@ -197,13 +197,16 @@ namespace PXLSchoolManagement.Data
                 new Vaklector { LectorId = 4, Inschrijvingen = new List <Inschrijving >() }
             };
 
-            vaklectoren[0].Inschrijvingen.Add(inschrijvingen[3]);
-            vaklectoren[1].Inschrijvingen.Add(inschrijvingen[0]);
-
-            vaklectoren[2].Inschrijvingen.Add(inschrijvingen[2]);
-            vaklectoren[2].Inschrijvingen.Add(inschrijvingen[4]);
-
-            vaklectoren[3].Inschrijvingen.Add(inschrijvingen[1]);
+                                                //Web Advanced
+            vaklectoren[3].Inschrijvingen.Add(inschrijvingen[3]);
+                                                //C# Web
+            vaklectoren[2].Inschrijvingen.Add(inschrijvingen[0]);
+                                                //C# Advanced
+            vaklectoren[1].Inschrijvingen.Add(inschrijvingen[2]);
+                                                //C# Essentials
+            vaklectoren[1].Inschrijvingen.Add(inschrijvingen[4]);
+                                                //Data Essentials
+            vaklectoren[0].Inschrijvingen.Add(inschrijvingen[1]);
 
             context.Vaklectoren.AddRange(vaklectoren);
             context.SaveChanges();
@@ -211,26 +214,64 @@ namespace PXLSchoolManagement.Data
             var handboeken = new List<Handboek>()
             {
                 new Handboek {
-                    Kostprijs = 25, 
-                    Studenten = new List<Student>(), 
-                    Titel = "C# Web voor Dummies", 
-                    VakId = 1,
+                    Kostprijs = 25,
+                    Studenten = new List<Student>(),
+                    Titel = "Pro ASP.NET Core 6",
+                    Vak = vakken.FirstOrDefault(vak => vak.VakNaam == "C# Web"),
                     Afbeelding = "",
-                    UitgifteDatum = new DateTime(2012, 1, 5)
+                    UitgifteDatum = new DateTime(2021, 1, 5)
                 },
                 new Handboek {
                     Kostprijs = 30,
                     Studenten = new List<Student>(),
                     Titel = "JavaScript voor gevorderden",
-                    VakId = 2,
+                    Vak = vakken.FirstOrDefault(vak => vak.VakNaam == "Web Advanced"),
                     Afbeelding = "",
                     UitgifteDatum = new DateTime(2016,2, 5)
-                }
+                },
+                new Handboek {
+                    Kostprijs = 50,
+                    Studenten = new List<Student>(),
+                    Titel = "C# Programming Basics",
+                    Vak = vakken.FirstOrDefault(vak => vak.VakNaam == "C# Essentials"),
+                    Afbeelding = "",
+                    UitgifteDatum = new DateTime(2021, 1, 5)
+                },
+                new Handboek {
+                    Kostprijs = 40,
+                    Studenten = new List<Student>(),
+                    Titel = "C# 9.0 in a Nutshell",
+                    Vak = vakken.FirstOrDefault(vak => vak.VakNaam == "C# Advanced"),
+                    Afbeelding = "",
+                    UitgifteDatum = new DateTime(2021, 1, 5)
+                },
+                new Handboek {
+                    Kostprijs = 60,
+                    Studenten = new List<Student>(),
+                    Titel = "SQL Cookbook",
+                    Vak = vakken.FirstOrDefault(vak => vak.VakNaam == "Data Essentials"),
+                    Afbeelding = "",
+                    UitgifteDatum = new DateTime(2021, 1, 5)
+                },
             };
+
+            //Assign random students to Handboek
+
+            handboeken.ForEach(handboek =>
+            {
+                var rngHandboek = new Random().Next(handboeken.Count);
+                for (int i = 0; i < rngHandboek; i++)
+                {
+                    handboek.Studenten.Add(studenten[i]);
+                }
+            });
 
             context.Handboeken.AddRange(handboeken);
             context.SaveChanges();
 
+            vakken.FirstOrDefault(vak => vak.VakNaam == "C# Web").Handboeken.Add(handboeken[0]);
+            context.Vakken.UpdateRange(vakken);
+            context.SaveChanges();
 
         }
     }

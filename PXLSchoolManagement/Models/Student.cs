@@ -10,9 +10,8 @@ namespace PXLSchoolManagement.Models
         public int StudentId { get; set; }
         public string GebruikerId { get; set; }
         public Gebruiker Gebruiker { get; set; }
-
         public List<Handboek> Handboeken { get; set; }
-        public List<Inschrijving> Inschrijvingen{ get; set; }
+        public List<Inschrijving> Inschrijvingen { get; set; }
 
     }
 }

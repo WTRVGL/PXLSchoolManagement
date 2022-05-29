@@ -6,8 +6,10 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using System.Linq;
 using PXLSchoolManagement.Areas.Admin.Models;
+using PXLSchoolManagement.Models;
+using PXLSchoolManagement.Areas.Home.Models;
 
-namespace PXLSchoolManagement.Controllers
+namespace PXLSchoolManagement.Areas.Home.Controllers
 {
     [Area("Home")]
     public class HomeController : Controller
@@ -29,7 +31,7 @@ namespace PXLSchoolManagement.Controllers
         {
             if (User.IsInRole("Admin"))
             {
-                var vm = new IndexViewModel
+                var vm = new AdminDashboardViewModel
                 {
                     Handboeken = _context.Handboeken.ToList(),
                     Studenten = _context.Studenten.ToList(),
