@@ -8,13 +8,21 @@
 <h4 class="mb-2">Vaklector: @Model.Cursus.Vaklectors.FirstOrDefault().Lector.Gebruiker.VolledigeNaam</h4>
 
 <div clas="col-4">
-    @if (Model.IsIngeschreven)
+    @if (User.IsInRole("Lector"))
     {
-        <span class="badge badge-success mb-4">Ingeschreven</span>
+
     }
     else
     {
-        <span class="badge badge-warning mb-4">Niet ingeschreven</span>
+
+        @if (Model.IsIngeschreven)
+        {
+            <span class="badge badge-success mb-4">Ingeschreven</span>
+        }
+        else
+        {
+            <span class="badge badge-warning mb-4">Niet ingeschreven</span>
+        }
     }
 </div>
 
@@ -51,7 +59,7 @@ else
     </table>
 
     <h3>Cursusmateriaal:</h3>
-    @foreach(var handboek in @Model.Cursus.Vak.Handboeken)
+    @foreach (var handboek in @Model.Cursus.Vak.Handboeken)
     {
         <h4>@handboek.Titel</h4>
     }

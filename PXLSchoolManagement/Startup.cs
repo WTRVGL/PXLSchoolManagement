@@ -77,16 +77,20 @@ namespace PXLSchoolManagement
             {
                 endpoints.MapRazorPages().RequireAuthorization();
                 endpoints.MapAreaControllerRoute(
-                    "Home",
-                    "Home",
-                    "{controller=Home}/{action=Index}/{id?}");
+                    name: "Home",
+                    areaName: "Home",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapAreaControllerRoute(
-                    "Admin",
-                    "Admin",
-                    "{area}/{controller=Home}/{action=Index}/{id?}");
+                    name: "Admin",
+                    areaName: "Admin",
+                    pattern: "{area}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapAreaControllerRoute(
                     name: "Student",
                     areaName: "Student",
+                    pattern: "{area}/{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapAreaControllerRoute(
+                    name: "Lector",
+                    areaName: "Lector",
                     pattern: "{area}/{controller=Home}/{action=Index}/{id?}");
             });
         }
