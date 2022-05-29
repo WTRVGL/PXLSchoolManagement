@@ -61,6 +61,5 @@ namespace PXLSchoolManagement.Areas.Student.Controllers
             
             return View(vm);
         }
-
     }
 }
