@@ -1,0 +1,27 @@
+﻿@model PXLSchoolManagement.Models.Vaklector
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Vaklector</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Lector)
+        </dt>
+        <dt class="col-sm-2">
+            @Model.Lector.Gebruiker.Voornaam
+        </dt>
+        <dd class="col-sm-">
+            @Html.DisplayFor(model => model.Lector.LectorId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.VakLectorId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

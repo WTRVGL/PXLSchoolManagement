@@ -1,34 +1,83 @@
-﻿using PXLSchoolManagement.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using PXLSchoolManagement.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PXLSchoolManagement.Data
 {
     public static class DatabaseInitializer
     {
-        public static void InitializeDb(DataContext context)
+        public static void InitializeDb(DataContext context, UserManager<Gebruiker> userManager)
         {
             if (context.Studenten.Any())
             {
                 return;
             }
 
+            var roles = new List<IdentityRole>
+            {
+                new IdentityRole { Name = "Student", NormalizedName = "STUDENT"},
+                new IdentityRole { Name = "Admin", NormalizedName = "ADMIN"},
+                new IdentityRole { Name = "Lector", NormalizedName = "LECTOR"}
+            };
+            context.Roles.AddRange(roles);
+            context.SaveChanges();
+
             var gebruikers = new List<Gebruiker>
             {
-                new Gebruiker {Voornaam = "Wouter", Naam = "Vangeel", Email = "wouter_vangeel4@hotmail.com"},
-                new Gebruiker {Voornaam = "Dieter", Naam = "Caerpentier", Email = "dieter.carpentier@gmail.com"},
-                new Gebruiker {Voornaam = "Pieterjan", Naam = "Mahieu", Email = "pieterjan.mahieu@pxl.be"},
-                new Gebruiker {Voornaam = "Wout", Naam = "Dhondt", Email = "wouter.dhont@hotmail.be"},
-                new Gebruiker {Voornaam = "Steve", Naam = "Vandewiele", Email = "steve_vandewiele@pxl.be"},
-                new Gebruiker {Voornaam = "Ilke", Naam = "Mortier", Email = "ilke.mortier@pxl.be"},
-                new Gebruiker {Voornaam = "Anke", Naam = "Beyls", Email = "anke-beyls@hotmail.com"},
-                new Gebruiker {Voornaam = "Mélodie", Naam = "De Maseneer", Email = "melodie_dm@pxl.be"},
-                new Gebruiker {Voornaam = "Cathy", Naam = "Blomme", Email = "cathyblomme@pxl.be"},
-                new Gebruiker {Voornaam = "Jeffry", Naam= "Steegmans", Email= "jeffrey.steegmans@pxl.be"},
-                new Gebruiker {Voornaam = "Kristof", Naam = "Palmaers", Email = "kristof.palmaers@pxl.be"},
-                new Gebruiker {Voornaam = "Paul", Naam = "Dox", Email = "paul.dox@pxl.be"},
-                new Gebruiker {Voornaam = "Patricia", Naam = "Briers", Email = "patricia.briers@pxl.be"}
+                new Gebruiker {Voornaam = "Wouter", Naam = "Vangeel", UserName = "wouter_vangeel4@hotmail.com"},
+                new Gebruiker {Voornaam = "Dieter", Naam = "Caerpentier", UserName = "dieter.carpentier@gmail.com"},
+                new Gebruiker {Voornaam = "Pieterjan", Naam = "Mahieu", UserName = "pieterjan.mahieu@pxl.be"},
+                new Gebruiker {Voornaam = "Wout", Naam = "Dhondt", UserName = "wouter.dhont@hotmail.be"},
+                new Gebruiker {Voornaam = "Steve", Naam = "Vandewiele", UserName = "steve_vandewiele@pxl.be"},
+                new Gebruiker {Voornaam = "Ilke", Naam = "Mortier", UserName = "ilke.mortier@pxl.be"},
+                new Gebruiker {Voornaam = "Anke", Naam = "Beyls", UserName = "anke-beyls@hotmail.com"},
+                new Gebruiker {Voornaam = "Mélodie", Naam = "De Maseneer", UserName = "melodie_dm@pxl.be"},
+                new Gebruiker {Voornaam = "Cathy", Naam = "Blomme", UserName = "cathyblomme@pxl.be"},
+                new Gebruiker {Voornaam = "Jeffry", Naam= "Steegmans", UserName= "jeffrey.steegmans@pxl.be"},
+                new Gebruiker {Voornaam = "Kristof", Naam = "Palmaers", UserName = "kristof.palmaers@pxl.be"},
+                new Gebruiker {Voornaam = "Paul", Naam = "Dox", UserName = "paul.dox@pxl.be"},
+                new Gebruiker {Voornaam = "Patricia", Naam = "Briers", UserName = "patricia.briers@pxl.be"},
+                new Gebruiker {Voornaam = "Student", Naam = "van PXL", UserName = "student@pxl.be"},
+                new Gebruiker {Voornaam = "Admin", Naam = "van PXL", UserName = "admin@pxl.be"}
             };
 
+            for (int i = 0; i < 13; i++)
+            {
+                gebruikers[i].NormalizedUserName = gebruikers[i].UserName.ToUpper();
+                gebruikers[i].PasswordHash = userManager.PasswordHasher.HashPassword(gebruikers[i], "Passwoord1.");
+            }
+
+            gebruikers[13].NormalizedUserName = gebruikers[13].UserName.ToUpper();
+            gebruikers[13].PasswordHash = userManager.PasswordHasher.HashPassword(gebruikers[13], "Student123!");
+
+            gebruikers[14].NormalizedUserName = gebruikers[14].UserName.ToUpper();
+            gebruikers[14].PasswordHash = userManager.PasswordHasher.HashPassword(gebruikers[14], "Admin456!");
+
             context.Gebruikers.AddRange(gebruikers);
+            context.SaveChanges();
+
+            var userRoles = new List<IdentityUserRole<string>>
+            {
+                new IdentityUserRole<string>{ UserId = gebruikers[0].Id, RoleId = roles[1].Id },
+                new IdentityUserRole<string>{ UserId = gebruikers[1].Id, RoleId = roles[0].Id },
+                new IdentityUserRole<string>{ UserId = gebruikers[2].Id, RoleId = roles[0].Id },
+                new IdentityUserRole<string>{ UserId = gebruikers[3].Id, RoleId = roles[0].Id },
+                new IdentityUserRole<string>{ UserId = gebruikers[4].Id, RoleId = roles[0].Id },
+                new IdentityUserRole<string>{ UserId = gebruikers[5].Id, RoleId = roles[0].Id },
+                new IdentityUserRole<string>{ UserId = gebruikers[6].Id, RoleId = roles[0].Id },
+                new IdentityUserRole<string>{ UserId = gebruikers[7].Id, RoleId = roles[0].Id },
+                new IdentityUserRole<string>{ UserId = gebruikers[8].Id, RoleId = roles[0].Id },
+                new IdentityUserRole<string>{ UserId = gebruikers[9].Id, RoleId = roles[2].Id },
+                new IdentityUserRole<string>{ UserId = gebruikers[10].Id, RoleId = roles[2].Id },
+                new IdentityUserRole<string>{ UserId = gebruikers[11].Id, RoleId = roles[2].Id },
+                new IdentityUserRole<string>{ UserId = gebruikers[12].Id, RoleId = roles[2].Id },
+                new IdentityUserRole<string>{ UserId = gebruikers[13].Id, RoleId = roles[0].Id },
+                new IdentityUserRole<string>{ UserId = gebruikers[14].Id, RoleId = roles[1].Id },
+            };
+
+            context.UserRoles.AddRange(userRoles);
             context.SaveChanges();
 
             var vakken = new List<Vak>
@@ -48,16 +97,16 @@ namespace PXLSchoolManagement.Data
 
             var academiejaren = new List<Academiejaar>
             {
-                new Academiejaar { Startdatum= DateTime.Parse("2013-09-14")},
-                new Academiejaar { Startdatum= DateTime.Parse("2014-09-14")},
-                new Academiejaar { Startdatum= DateTime.Parse("2015-09-14")},
-                new Academiejaar { Startdatum= DateTime.Parse("2016-09-14")},
-                new Academiejaar { Startdatum= DateTime.Parse("2017-09-14")},
-                new Academiejaar { Startdatum= DateTime.Parse("2018-09-14")},
-                new Academiejaar { Startdatum= DateTime.Parse("2019-09-14")},
-                new Academiejaar { Startdatum= DateTime.Parse("2020-09-14")},
-                new Academiejaar { Startdatum= DateTime.Parse("2021-09-14")},
-                new Academiejaar { Startdatum= DateTime.Parse("2022-09-14")},
+                new Academiejaar { Startdatum= DateTime.Parse("2013-09-14"), JarenGeformatteerd = "2013 - 2014"},
+                new Academiejaar { Startdatum= DateTime.Parse("2014-09-14"), JarenGeformatteerd = "2014 - 2015"},
+                new Academiejaar { Startdatum= DateTime.Parse("2015-09-14"), JarenGeformatteerd = "2015 - 2016"},
+                new Academiejaar { Startdatum= DateTime.Parse("2016-09-14"), JarenGeformatteerd = "2016 - 2017"},
+                new Academiejaar { Startdatum= DateTime.Parse("2017-09-14"), JarenGeformatteerd = "2017 - 2018"},
+                new Academiejaar { Startdatum= DateTime.Parse("2018-09-14"), JarenGeformatteerd = "2018 - 2019"},
+                new Academiejaar { Startdatum= DateTime.Parse("2019-09-14"), JarenGeformatteerd = "2019 - 2020"},
+                new Academiejaar { Startdatum= DateTime.Parse("2020-09-14"), JarenGeformatteerd = "2020 - 2021"},
+                new Academiejaar { Startdatum= DateTime.Parse("2021-09-14"), JarenGeformatteerd = "2021 - 2022"},
+                new Academiejaar { Startdatum= DateTime.Parse("2022-09-14"), JarenGeformatteerd = "2022 - 2023"},
 
             };
 
@@ -67,31 +116,31 @@ namespace PXLSchoolManagement.Data
             var inschrijvingen = new List<Inschrijving>
             {
                 new Inschrijving {
-                    AcademiejaarId = 10, 
-                    Vak = vakken.FirstOrDefault<Vak>(vak => vak.VakNaam == "C# Web"), 
+                    AcademiejaarId = 2,
+                    Vak = vakken.FirstOrDefault<Vak>(vak => vak.VakNaam == "C# Web"),
                     Studenten = new List<Student>(),
                     Vaklectors = new List<Vaklector>()
                 },
                 new Inschrijving {
-                    AcademiejaarId = 10,
+                    AcademiejaarId = 2,
                     Vak = vakken.FirstOrDefault<Vak>(vak => vak.VakNaam == "Data Essentials"),
                     Studenten = new List<Student>(),
                     Vaklectors = new List<Vaklector>()
                 },
                 new Inschrijving {
-                    AcademiejaarId = 10,
+                    AcademiejaarId = 2,
                     Vak = vakken.FirstOrDefault<Vak>(vak => vak.VakNaam == "C# Advanced"),
                     Studenten = new List<Student>(),
                     Vaklectors = new List<Vaklector>()
                 },
                 new Inschrijving {
-                    AcademiejaarId = 10,
+                    AcademiejaarId = 2,
                     Vak = vakken.FirstOrDefault<Vak>(vak => vak.VakNaam == "Web Advanced"),
                     Studenten = new List<Student>(),
                     Vaklectors = new List<Vaklector>()
                 },
                 new Inschrijving {
-                    AcademiejaarId = 10,
+                    AcademiejaarId = 2,
                     Vak = vakken.FirstOrDefault<Vak>(vak => vak.VakNaam == "C# Essentials"),
                     Studenten = new List<Student>(),
                     Vaklectors = new List<Vaklector>()
@@ -148,13 +197,16 @@ namespace PXLSchoolManagement.Data
                 new Vaklector { LectorId = 4, Inschrijvingen = new List <Inschrijving >() }
             };
 
-            vaklectoren[0].Inschrijvingen.Add(inschrijvingen[3]);
-            vaklectoren[1].Inschrijvingen.Add(inschrijvingen[0]);
-
-            vaklectoren[2].Inschrijvingen.Add(inschrijvingen[2]);
-            vaklectoren[2].Inschrijvingen.Add(inschrijvingen[4]);
-
-            vaklectoren[3].Inschrijvingen.Add(inschrijvingen[1]);
+                                                //Web Advanced
+            vaklectoren[3].Inschrijvingen.Add(inschrijvingen[3]);
+                                                //C# Web
+            vaklectoren[2].Inschrijvingen.Add(inschrijvingen[0]);
+                                                //C# Advanced
+            vaklectoren[1].Inschrijvingen.Add(inschrijvingen[2]);
+                                                //C# Essentials
+            vaklectoren[1].Inschrijvingen.Add(inschrijvingen[4]);
+                                                //Data Essentials
+            vaklectoren[0].Inschrijvingen.Add(inschrijvingen[1]);
 
             context.Vaklectoren.AddRange(vaklectoren);
             context.SaveChanges();
@@ -162,24 +214,63 @@ namespace PXLSchoolManagement.Data
             var handboeken = new List<Handboek>()
             {
                 new Handboek {
-                    Kostprijs = 25, 
-                    Studenten = new List<Student>(), 
-                    Titel = "C# Web voor Dummies", 
-                    VakId = 1,
+                    Kostprijs = 25,
+                    Studenten = new List<Student>(),
+                    Titel = "Pro ASP.NET Core 6",
+                    Vak = vakken.FirstOrDefault(vak => vak.VakNaam == "C# Web"),
                     Afbeelding = "",
-                    UitgifteDatum = new DateTime(2012, 1, 5)
+                    UitgifteDatum = new DateTime(2021, 1, 5)
                 },
                 new Handboek {
                     Kostprijs = 30,
                     Studenten = new List<Student>(),
                     Titel = "JavaScript voor gevorderden",
-                    VakId = 2,
+                    Vak = vakken.FirstOrDefault(vak => vak.VakNaam == "Web Advanced"),
                     Afbeelding = "",
                     UitgifteDatum = new DateTime(2016,2, 5)
-                }
+                },
+                new Handboek {
+                    Kostprijs = 50,
+                    Studenten = new List<Student>(),
+                    Titel = "C# Programming Basics",
+                    Vak = vakken.FirstOrDefault(vak => vak.VakNaam == "C# Essentials"),
+                    Afbeelding = "",
+                    UitgifteDatum = new DateTime(2021, 1, 5)
+                },
+                new Handboek {
+                    Kostprijs = 40,
+                    Studenten = new List<Student>(),
+                    Titel = "C# 9.0 in a Nutshell",
+                    Vak = vakken.FirstOrDefault(vak => vak.VakNaam == "C# Advanced"),
+                    Afbeelding = "",
+                    UitgifteDatum = new DateTime(2021, 1, 5)
+                },
+                new Handboek {
+                    Kostprijs = 60,
+                    Studenten = new List<Student>(),
+                    Titel = "SQL Cookbook",
+                    Vak = vakken.FirstOrDefault(vak => vak.VakNaam == "Data Essentials"),
+                    Afbeelding = "",
+                    UitgifteDatum = new DateTime(2021, 1, 5)
+                },
             };
 
+            //Assign random students to Handboek
+
+            handboeken.ForEach(handboek =>
+            {
+                var rngHandboek = new Random().Next(handboeken.Count);
+                for (int i = 0; i < rngHandboek; i++)
+                {
+                    handboek.Studenten.Add(studenten[i]);
+                }
+            });
+
             context.Handboeken.AddRange(handboeken);
+            context.SaveChanges();
+
+            vakken.FirstOrDefault(vak => vak.VakNaam == "C# Web").Handboeken.Add(handboeken[0]);
+            context.Vakken.UpdateRange(vakken);
             context.SaveChanges();
 
         }

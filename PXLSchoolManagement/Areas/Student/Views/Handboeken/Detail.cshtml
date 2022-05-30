@@ -1,0 +1,29 @@
+﻿@model PXLSchoolManagement.Areas.Student.Models.StudentHandboekDetailViewModel
+
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<h2>@Model.Handboek.Vak.VakNaam - €@Model.Handboek.Kostprijs</h2>
+<h4 class="mb-2">Vaklector: @Model.VaklectorBoek.Lector.Gebruiker.VolledigeNaam</h4>
+
+<div clas="col-4">
+    @if (User.IsInRole("Lector"))
+    {
+
+    }
+    else
+    {
+        @if (Model.InBezit)
+        {
+            <span class="badge badge-success mb-4">Boek in bezit</span>
+        }
+        else
+        {
+            <span class="badge badge-warning mb-4">Boek niet in bezit</span>
+        }
+    }
+</div>
+
+
+

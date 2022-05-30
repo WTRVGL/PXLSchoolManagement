@@ -1,0 +1,51 @@
+﻿@model PXLSchoolManagement.Areas.Home.Models.AdminDashboardViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welkom!</h1>
+    <p>Overzicht</p>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Aantal Studenten
+            </th>
+            <th>
+                Aantal Inschrijvingen
+            </th>
+            <th>
+                Aantal Handboeken
+            </th>
+            <th>
+                Aantal Vaklectoren
+            </th>
+            <th>
+                Aantal nieuwe account aanvragen
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <p>@Model.Studenten.Count</p>
+            </td>
+            <td>
+                <p>@Model.Inschrijvingen.Count</p>
+            </td>
+            <td>
+                <p>@Model.Handboeken.Count</p>
+            </td>
+             <td>
+                <p>@Model.Vaklectoren.Count</p>
+            </td>
+            <td>
+                <p>@Model.TemporarilyAccountCount</p>
+            </td>
+        </tr>
+    </tbody>
+</table>

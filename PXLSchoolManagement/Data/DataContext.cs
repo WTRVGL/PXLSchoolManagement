@@ -1,17 +1,28 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PXLSchoolManagement.Models;
 
 namespace PXLSchoolManagement.Data
 {
-    public class DataContext : IdentityDbContext<Gebruiker>
+    public class DataContext : IdentityDbContext<Gebruiker, IdentityRole, string>
     {
+        public DataContext()
+        {
+
+        }
+
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Student>()
+                .HasMany(s => s.Handboeken)
+                .WithMany(h => h.Studenten);
         }
 
         public DbSet<Academiejaar> Academiejaren { get; set; }

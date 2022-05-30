@@ -1,0 +1,11 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model PXLSchoolManagement.Areas.Home.Models.StudentDashboardViewModel
+@inject UserManager<Gebruiker> _userManager
+
+@{
+    ViewData["Title"] = "StudentDashboard";
+    var user = await _userManager.GetUserAsync(User);
+}
+
+<h1>Welkom terug, @user.Voornaam</h1>
+

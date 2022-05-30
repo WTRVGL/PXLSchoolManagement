@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PXLSchoolManagement.Models
@@ -8,7 +9,10 @@ namespace PXLSchoolManagement.Models
         [Key]
         public string Naam { get; set; }
         public string Voornaam { get; set; }
-        public string Email { get; set; }
         public string VolledigeNaam => Voornaam + " " + Naam;
+        public List<IdentityRole> Roles { get; set; }
+        public bool IsTemporarilyAccount { get; set; }
+        public IdentityRole RequestedRole { get; set; }
+
     }
 }
