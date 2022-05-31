@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using PXLSchoolManagement.Areas.Admin.Models;
 using PXLSchoolManagement.Data;
 using PXLSchoolManagement.Models;
 
@@ -24,8 +25,12 @@ namespace PXLSchoolManagement.Areas.Admin.Controllers
         // GET: Inschrijvingen
         public async Task<IActionResult> Index()
         {
-            var dataContext = _context.Inschrijvingen.Include(i => i.Academiejaar).Include(i => i.Vak);
-            return View(await dataContext.ToListAsync());
+            var vm = new InschrijvingenIndexViewModel();
+            vm.Inschrijvingen = _context.Inschrijvingen
+                .Include(i => i.Academiejaar)
+                .Include(i => i.Vak)
+                .ToList();
+            return View(vm);
         }
 
         // GET: Inschrijvingen/Details/5

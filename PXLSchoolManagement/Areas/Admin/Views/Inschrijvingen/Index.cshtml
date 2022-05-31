@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Inschrijving>
+﻿@model PXLSchoolManagement.Areas.Admin.Models.InschrijvingenIndexViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -13,28 +13,28 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Vak)
+                Vak
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Academiejaar)
+                Academiejaar
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var inschrijving in Model.Inschrijvingen)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Vak.Id)
+                    @Html.DisplayFor(modelItem => inschrijving.Vak.VakNaam)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Academiejaar.AcademiejaarId)
+                    @Html.DisplayFor(modelItem => inschrijving.Academiejaar.JarenGeformatteerd)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@inschrijving.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@inschrijving.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@inschrijving.Id">Delete</a>
                 </td>
             </tr>
         }
